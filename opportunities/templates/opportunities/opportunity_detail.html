@@ -14,7 +14,7 @@
 
 <section class="dashboard-section">
     <div class="container" style="max-width: 900px;">
-        <a href="{% url 'opportunities:opportunity_list' %}" class="btn btn-outline-primary rounded-pill mb-4">
+        <a href="{% url 'opportunities:opportunity_list' %}" class="btn btn btn-secondary rounded-pill mb-4">
             {% trans "Back to Opportunities" %}
         </a>
 
@@ -66,6 +66,10 @@
                     <a href="{% url 'applications:apply_opportunity' opportunity.pk %}" class="dashboard-btn">
                         {% trans "Apply for this Opportunity" %}
                     </a>
+                {% elif user.is_authenticated and user.role == 'agency' and opportunity.created_by == user %}
+                    <p class="text-muted fw-bold">{% trans "You can manage this opportunity from your dashboard" %}</p>
+                {% elif user.is_authenticated and user.role == 'agency' %}
+                    <!-- Show nothing for other agencies -->
                 {% elif user.is_staff %}
                     <p class="text-muted fw-bold">{% trans "Admins cannot apply for volunteer opportunities" %}</p>
                 {% else %}

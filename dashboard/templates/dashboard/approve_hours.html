@@ -44,6 +44,11 @@
                     {% endfor %}
                 </tbody>
             </table>
+            <div>
+                <a href="{% url 'dashboard:admin_dashboard' %}" class="mt-4 btn btn-secondary">
+                {% trans "Back to Dashboard" %}
+            </a>
+            </div>
         </div>
     </div>
 </section>

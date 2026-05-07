@@ -1,0 +1,189 @@
+{% extends "admin/base.html" %}
+{% load static i18n %}
+
+{% block title %}{% if title %}{{ title }} | {% endif %}{% trans "SEU Volunteer Admin" %}{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">
+    <a href="{% url 'admin:index' %}" style="color: #fff; text-decoration: none; font-weight: 700; font-size: 1.3rem;">
+        {% trans "SEU Volunteer Admin" %}
+    </a>
+</h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
+
+{% block extrastyle %}
+<style>
+    :root {
+        --primary: #2f7cff;
+        --secondary: #914cff;
+        --accent: #6f5cff;
+        --primary-fg: #fff;
+        --body-fg: #1f2430;
+        --body-bg: #f5f7fb;
+        --body-quiet-color: #5c6274;
+        --body-loud-color: #0d1b4d;
+        --header-color: #fff;
+        --header-branding-color: #fff;
+        --header-bg: linear-gradient(90deg, #2874f0 0%, #6f5cff 50%, #9c3fe4 100%);
+        --header-link-color: #f3ebff;
+        --breadcrumbs-bg: #f4f0ff;
+        --breadcrumbs-fg: #6f5cff;
+        --breadcrumbs-link-fg: #2f7cff;
+        --link-fg: #2f7cff;
+        --link-hover-color: #914cff;
+        --link-selected-fg: #6f5cff;
+        --button-bg: var(--primary);
+        --button-fg: #fff;
+        --button-hover-bg: #1a68e8;
+        --default-button-bg: var(--secondary);
+        --default-button-hover-bg: #7a3ad4;
+        --close-button-bg: #888;
+        --close-button-hover-bg: #666;
+        --delete-button-bg: #e74c3c;
+        --delete-button-hover-bg: #c0392b;
+        --object-tools-fg: var(--button-fg);
+        --object-tools-bg: var(--primary);
+        --object-tools-hover-bg: #1a68e8;
+        --darkened-bg: #f8f9fa;
+        --selected-bg: #f4f0ff;
+        --selected-row: #faf8ff;
+    }
+
+    #header {
+        background: var(--header-bg);
+        padding: 16px 24px;
+    }
+
+    #header a:link, #header a:visited {
+        color: var(--header-link-color);
+    }
+
+    #user-tools a {
+        color: var(--header-link-color);
+        font-weight: 600;
+    }
+
+    #user-tools a:hover {
+        color: #fff;
+    }
+
+    div.breadcrumbs {
+        background: var(--breadcrumbs-bg);
+        color: var(--breadcrumbs-fg);
+        padding: 12px 24px;
+        font-size: 0.9rem;
+    }
+
+    div.breadcrumbs a {
+        color: var(--breadcrumbs-link-fg);
+        font-weight: 600;
+    }
+
+    div.breadcrumbs a:hover {
+        color: var(--link-hover-color);
+    }
+
+    .module h2, .module caption, .inline-group h2 {
+        background: linear-gradient(90deg, #2f7cff, #914cff);
+        color: #fff;
+        padding: 10px 14px;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    a:link, a:visited {
+        color: var(--link-fg);
+    }
+
+    a:hover {
+        color: var(--link-hover-color);
+    }
+
+    .button, input[type=submit], input[type=button], .submit-row input {
+        background: var(--button-bg);
+        color: var(--button-fg);
+        border-radius: 12px;
+        padding: 10px 18px;
+        font-weight: 600;
+        border: none;
+        transition: opacity 0.2s ease;
+    }
+
+    .button:hover, input[type=submit]:hover, input[type=button]:hover {
+        background: var(--button-hover-bg);
+    }
+
+    .button.default, input[type=submit].default, .submit-row input.default {
+        background: var(--default-button-bg);
+    }
+
+    .button.default:hover, input[type=submit].default:hover {
+        background: var(--default-button-hover-bg);
+    }
+
+    .deletelink {
+        background: var(--delete-button-bg);
+        border-radius: 12px;
+        padding: 10px 18px;
+        font-weight: 600;
+    }
+
+    .deletelink:hover {
+        background: var(--delete-button-hover-bg);
+    }
+
+    #changelist-filter li.selected a {
+        color: var(--link-selected-fg);
+    }
+
+    #changelist filter a {
+        color: var(--link-fg);
+    }
+
+    .paginator {
+        background: var(--darkened-bg);
+        border-top: 1px solid #e0e0e0;
+        padding: 12px;
+    }
+
+    .paginator a:link, .paginator a:visited {
+        background: var(--button-bg);
+        color: #fff;
+        border-radius: 8px;
+        padding: 6px 12px;
+    }
+
+    .paginator a:hover {
+        background: var(--button-hover-bg);
+    }
+
+    .paginator .this-page {
+        background: var(--selected-bg);
+        color: var(--body-loud-color);
+        border-radius: 8px;
+        padding: 6px 12px;
+        font-weight: 700;
+    }
+
+    table thead th {
+        background: #f4f0ff;
+        color: #0d1b4d;
+        font-weight: 700;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    table tbody tr:hover {
+        background: #faf8ff;
+    }
+
+    .selector-chosen h2 {
+        background: linear-gradient(90deg, #2f7cff, #914cff) !important;
+        color: #fff !important;
+    }
+</style>
+{% endblock %}

@@ -31,11 +31,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'opportunities:opportunity_list' %}">{% trans "Opportunities" %}</a>
                 </li>
+                
+
+                {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="/dashboard/">{% trans "Dashboard" %}</a>
                 </li>
-
-                {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="/profile/">{% trans "Profile" %}</a>
                 </li>
@@ -48,6 +49,9 @@
                 {% else %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'login' %}">{% trans "Login" %}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'register' %}">{% trans "Register" %}</a>
                 </li>
                 {% endif %}
 

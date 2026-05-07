@@ -46,7 +46,7 @@ def login_view(request):
 
             login(request, user)
 
-            if user.role == 'admin':
+            if user.is_staff:
                 return redirect('dashboard:admin_dashboard')
 
             elif user.role == 'agency':
@@ -75,7 +75,7 @@ def register_view(request):
         confirm_password = request.POST.get('confirm_password')
         role = request.POST.get('role', 'student')
 
-        valid_roles = dict(User.ROLE_CHOICES).keys()
+        valid_roles = ['student', 'agency']
         if role not in valid_roles:
             role = 'student'
 
@@ -105,7 +105,7 @@ def register_view(request):
 
         login(request, user)
 
-        if user.role == 'admin':
+        if user.is_staff:
             return redirect('dashboard:admin_dashboard')
         elif user.role == 'agency':
             return redirect('dashboard:agency_dashboard')
@@ -118,7 +118,7 @@ def register_view(request):
 @login_required
 def dashboard(request):
 
-    if request.user.role == 'admin':
+    if request.user.is_staff:
         return redirect('dashboard:admin_dashboard')
 
     elif request.user.role == 'agency':
@@ -215,7 +215,7 @@ def agency_dashboard(request):
 @login_required
 def admin_dashboard(request):
 
-    if request.user.role != 'admin':
+    if not request.user.is_staff:
         return redirect('home')
 
     opportunities = Opportunity.objects.all().order_by('-id')
@@ -259,7 +259,7 @@ def add_opportunity(request):
 @login_required
 def view_volunteers(request):
 
-    if request.user.role not in ['agency', 'admin']:
+    if request.user.role != 'agency' and not request.user.is_staff:
         return redirect('home')
 
     return render(
@@ -271,7 +271,7 @@ def view_volunteers(request):
 @login_required
 def manage_users(request):
 
-    if request.user.role != 'admin':
+    if not request.user.is_staff:
         return redirect('home')
 
     users = User.objects.all().order_by('id')
@@ -288,7 +288,7 @@ def manage_users(request):
 @login_required
 def approve_hours(request):
 
-    if request.user.role != 'admin':
+    if not request.user.is_staff:
         return redirect('home')
 
     registrations = Application.objects.select_related(
@@ -308,7 +308,7 @@ def approve_hours(request):
 @login_required
 def complete_application(request, pk):
 
-    if request.user.role != 'admin':
+    if not request.user.is_staff:
         return redirect('home')
 
     application = Application.objects.get(pk=pk)
@@ -324,7 +324,7 @@ def complete_application(request, pk):
 @login_required
 def toggle_user_status(request, pk):
 
-    if request.user.role != 'admin':
+    if not request.user.is_staff:
         return redirect('home')
 
     user = User.objects.get(pk=pk)
@@ -339,7 +339,7 @@ def toggle_user_status(request, pk):
 @login_required
 def delete_user(request, pk):
 
-    if request.user.role != 'admin':
+    if not request.user.is_staff:
         return redirect('home')
 
     user = User.objects.get(pk=pk)

@@ -20,6 +20,7 @@ class CustomUser(AbstractUser):
     ROLE_CHOICES = (
         ('student', _('Student')),
         ('agency', _('Agency')),
+        ('admin', _('Admin')),
     )
 
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='student', verbose_name=_('Role'))
