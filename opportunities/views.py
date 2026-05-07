@@ -8,10 +8,7 @@ from applications.models import Application
 @login_required
 def opportunity_list(request):
 
-    opportunities = Opportunity.objects.filter(
-        is_active=True,
-        status='approved'
-    )
+    opportunities = Opportunity.objects.filter(is_active=True)
 
     applied_opportunity_ids = Application.objects.filter(
         student=request.user
@@ -29,8 +26,7 @@ def opportunity_detail(request, pk):
     opportunity = get_object_or_404(
         Opportunity,
         pk=pk,
-        is_active=True,
-        status='approved'
+        is_active=True
     )
 
     return render(request, "opportunities/opportunity_detail.html", {
@@ -47,7 +43,7 @@ def create_opportunity(request):
     if request.method == "POST":
 
         Opportunity.objects.create(
-            name=request.POST.get("name") or request.POST.get("title"),
+            title=request.POST.get("name") or request.POST.get("title"),
             description=request.POST.get("description"),
             location=request.POST.get("location"),
             date=request.POST.get("date"),
@@ -56,7 +52,8 @@ def create_opportunity(request):
             category=request.POST.get("category"),
             organization=request.POST.get("organization") or "SEU Volunteer Agency",
             status='pending',
-            is_active=True
+            is_active=True,
+            created_by=request.user
         )
 
         return redirect("dashboard:agency_dashboard")
@@ -70,11 +67,11 @@ def edit_opportunity(request, pk):
     if request.user.role != 'agency':
         return redirect('home')
 
-    opportunity = get_object_or_404(Opportunity, pk=pk)
+    opportunity = get_object_or_404(Opportunity, pk=pk, created_by=request.user)
 
     if request.method == "POST":
 
-        opportunity.name = request.POST.get("name") or request.POST.get("title")
+        opportunity.title = request.POST.get("name") or request.POST.get("title")
         opportunity.description = request.POST.get("description")
         opportunity.location = request.POST.get("location")
         opportunity.date = request.POST.get("date")
@@ -101,7 +98,7 @@ def delete_opportunity(request, pk):
     if request.user.role != 'agency':
         return redirect('home')
 
-    opportunity = get_object_or_404(Opportunity, pk=pk)
+    opportunity = get_object_or_404(Opportunity, pk=pk, created_by=request.user)
 
     if request.method == "POST":
         opportunity.delete()

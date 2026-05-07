@@ -18,7 +18,6 @@ urlpatterns = [
     path('dashboard/', include('dashboard.urls')),
     path('opportunities/', include('opportunities.urls')),
     path('applications/', include('applications.urls')),
-    path('chatbot/', include('chatbot.urls')),
     path('users/', include('users.urls')),
     path('profile/', include('student_profile.urls')),
     path('', include('accounts.urls')),

@@ -58,6 +58,11 @@ def register_view(request):
         email = request.POST.get('email')
         password = request.POST.get('password')
         confirm_password = request.POST.get('confirm_password')
+        role = request.POST.get('role', 'student')
+
+        valid_roles = dict(User.ROLE_CHOICES).keys()
+        if role not in valid_roles:
+            role = 'student'
 
         if not email or email.strip() == "":
             messages.error(request, 'Email is required.')
@@ -80,11 +85,17 @@ def register_view(request):
         )
 
         user.first_name = first_name or ""
+        user.role = role
         user.save()
 
         login(request, user)
 
-        return redirect('dashboard:student_dashboard')
+        if user.role == 'admin':
+            return redirect('dashboard:admin_dashboard')
+        elif user.role == 'agency':
+            return redirect('dashboard:agency_dashboard')
+        else:
+            return redirect('dashboard:student_dashboard')
 
     return render(request, 'registration/signup.html')
 
@@ -109,9 +120,8 @@ def student_dashboard(request):
         return redirect('home')
 
     opportunities = Opportunity.objects.filter(
-        is_active=True,
-        status='approved'
-    )
+    is_active=True
+)
 
     total_opportunities = opportunities.count()
 
@@ -126,9 +136,14 @@ def student_dashboard(request):
         total=Sum("volunteer_hours")
     )["total"] or 0
 
+    user_profile = getattr(request.user, 'profile', None)
+    
     user_data = {
-        "major": getattr(request.user, "major", "") or "",
-        "interests": getattr(request.user, "interests", "") or "",
+        "major": (getattr(user_profile, "major", "") or "") if user_profile else "",
+        "interests": (getattr(user_profile, "interests", "") or "") if user_profile else "",
+        "skills": (getattr(user_profile, "skills", "") or "") if user_profile else "",
+        "department": (getattr(user_profile, "department", "") or "") if user_profile else "",
+        "location": (getattr(user_profile, "location", "") or "") if user_profile else "",
     }
 
     recommended = recommend_opportunities(
@@ -161,7 +176,7 @@ def agency_dashboard(request):
     if request.user.role != 'agency':
         return redirect('home')
 
-    opportunities = Opportunity.objects.all().order_by('-id')
+    opportunities = Opportunity.objects.filter(created_by=request.user).order_by('-id')
 
     applications = Application.objects.filter(
         opportunity__in=opportunities

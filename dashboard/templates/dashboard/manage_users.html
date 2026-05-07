@@ -3,79 +3,58 @@
 {% block title %}Manage Users{% endblock %}
 
 {% block content %}
-<section class="section">
+<section class="dashboard-hero">
+    <div class="container text-center">
+        <h1>Manage Users</h1>
+        <p>View and manage platform users.</p>
+    </div>
+</section>
+
+<section class="dashboard-section">
     <div class="container">
-
-        <div class="card">
-
-            <h2>Manage Users</h2>
-
-            <table>
-
-                <tr>
-                    <th>ID</th>
-                    <th>Username</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-
-                {% for user in users %}
-                <tr>
-
-                    <td>{{ user.id }}</td>
-
-                    <td>{{ user.username }}</td>
-
-                    <td>{{ user.first_name }}</td>
-
-                    <td>{{ user.email }}</td>
-
-                    <td>{{ user.role }}</td>
-
-                    <td>
-                        {% if user.is_active %}
-                            Active
-                        {% else %}
-                            Disabled
-                        {% endif %}
-                    </td>
-
-                    <td>
-
-                        {% if user != request.user %}
-
-                            <a href="{% url 'dashboard:toggle_user_status' user.pk %}">
-                                {% if user.is_active %}
-                                    Disable
-                                {% else %}
-                                    Enable
-                                {% endif %}
-                            </a>
-
-                            |
-
-                            <a href="{% url 'dashboard:delete_user' user.pk %}">
-                                Delete
-                            </a>
-
-                        {% else %}
-
-                            Current Admin
-
-                        {% endif %}
-
-                    </td>
-
-                </tr>
-                {% endfor %}
-
+        <div class="dashboard-panel">
+            <table class="dash-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.first_name }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.role }}</td>
+                        <td>
+                            {% if user.is_active %}
+                            <span class="text-success fw-bold">Active</span>
+                            {% else %}
+                            <span class="text-danger fw-bold">Disabled</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if user != request.user %}
+                            <a href="{% url 'dashboard:toggle_user_status' user.pk %}" class="action-link">
+                                {% if user.is_active %}Disable{% else %}Enable{% endif %}
+                            </a> |
+                            <a href="{% url 'dashboard:delete_user' user.pk %}" class="action-link danger">Delete</a>
+                            {% else %}
+                            <span class="text-muted">Current Admin</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
             </table>
-
         </div>
-
     </div>
 </section>
 {% endblock %}

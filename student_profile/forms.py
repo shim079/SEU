@@ -15,6 +15,7 @@ class ProfileForm(forms.ModelForm):
         fields = [
             'phone',
             'department',
+            'location',
             'major',
             'interests',
             'skills',

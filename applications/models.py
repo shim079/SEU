@@ -17,7 +17,7 @@ class Application(models.Model):
     applied_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.student.username} - {self.opportunity.name} - {self.status}"
+        return f"{self.student.username} - {self.opportunity.title} - {self.status}"
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -35,7 +35,7 @@ class Application(models.Model):
                     opportunity=self.opportunity
                 )
 
-            message = f"Congratulations! Your certificate for {self.opportunity.name} is ready."
+            message = f"Congratulations! Your certificate for {self.opportunity.title} is ready."
 
             if not Notification.objects.filter(
                 user=self.student,

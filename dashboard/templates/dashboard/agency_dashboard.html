@@ -3,81 +3,81 @@
 {% block title %}Agency Dashboard{% endblock %}
 
 {% block content %}
-
-<section class="section">
-    <div class="container">
-
-        <h2>Agency Dashboard</h2>
+<section class="dashboard-hero">
+    <div class="container text-center">
+        <h1>Agency Dashboard</h1>
         <p>Manage opportunities and volunteer requests.</p>
+    </div>
+</section>
 
-        <div style="margin-bottom:20px;">
-            <a href="{% url 'opportunities:create_opportunity' %}" class="btn-primary">
+<section class="dashboard-section">
+    <div class="container">
+        <div class="d-flex gap-3 mb-5">
+            <a href="{% url 'opportunities:create_opportunity' %}" class="dashboard-btn">
                 Add Opportunity
             </a>
-
-            <a href="{% url 'dashboard:view_volunteers' %}" class="btn-secondary">
+            <a href="{% url 'dashboard:view_volunteers' %}" class="btn btn-secondary">
                 View Volunteers
             </a>
         </div>
 
-        <div class="card">
-            <h3>My Opportunities</h3>
-
-            <table style="width:100%;">
-                <tr>
-                    <th>Name</th>
-                    <th>Organization</th>
-                    <th>Location</th>
-                    <th>Date</th>
-                    <th>Hours</th>
-                    <th>Admin Approval</th>
-                </tr>
-
-                {% for opportunity in opportunities %}
-                <tr>
-                    <td>{{ opportunity.name }}</td>
-                    <td>{{ opportunity.organization }}</td>
-                    <td>{{ opportunity.location }}</td>
-                    <td>{{ opportunity.date }}</td>
-                    <td>{{ opportunity.hours }}</td>
-                    <td>{{ opportunity.status }}</td>
-                </tr>
-
-                {% empty %}
-                <tr>
-                    <td colspan="6">No opportunities found.</td>
-                </tr>
-                {% endfor %}
+        <div class="dashboard-panel mb-5">
+            <h3 class="fw-bold mb-4" style="color:#0d1b4d;">My Opportunities</h3>
+            <table class="dash-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Organization</th>
+                        <th>Location</th>
+                        <th>Date</th>
+                        <th>Hours</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for opportunity in opportunities %}
+                    <tr>
+                        <td>{{ opportunity.name }}</td>
+                        <td>{{ opportunity.organization }}</td>
+                        <td>{{ opportunity.location }}</td>
+                        <td>{{ opportunity.date }}</td>
+                        <td>{{ opportunity.hours }}</td>
+                        <td>{{ opportunity.status }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center text-muted">No opportunities found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
             </table>
         </div>
 
-        <div class="card" style="margin-top:30px;">
-            <h3>Student Applications</h3>
-
-            <table style="width:100%;">
-                <tr>
-                    <th>Student</th>
-                    <th>Opportunity</th>
-                    <th>Status</th>
-                </tr>
-
-                {% for application in applications %}
-                <tr>
-                    <td>{{ application.student }}</td>
-                    <td>{{ application.opportunity.name }}</td>
-                    <td>{{ application.status }}</td>
-                </tr>
-
-                {% empty %}
-                <tr>
-                    <td colspan="3">No student applications yet.</td>
-                </tr>
-                {% endfor %}
+        <div class="dashboard-panel">
+            <h3 class="fw-bold mb-4" style="color:#0d1b4d;">Student Applications</h3>
+            <table class="dash-table">
+                <thead>
+                    <tr>
+                        <th>Student</th>
+                        <th>Opportunity</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for application in applications %}
+                    <tr>
+                        <td>{{ application.student }}</td>
+                        <td>{{ application.opportunity.name }}</td>
+                        <td>{{ application.status }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="3" class="text-center text-muted">No student applications yet.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
             </table>
         </div>
-
     </div>
 </section>
-
 {% endblock %}
-

@@ -1,77 +1,73 @@
-{% extends 'opportunities/base.html' %}
+{% extends 'base.html' %}
 
 {% block title %}Volunteer Opportunities{% endblock %}
 
 {% block content %}
 
-<section class="opportunities-hero">
-    <div class="hero-overlay"></div>
-    <div class="hero-shape hero-shape-1"></div>
-    <div class="hero-shape hero-shape-2"></div>
-
-    <div class="container text-center hero-content">
-        <h1 class="hero-title">Explore Volunteer Opportunities</h1>
-        <p class="hero-text">
-            Find opportunities that match your interests and contribute to your community
-        </p>
+<section class="dashboard-hero">
+    <div class="container text-center">
+        <h1>Explore Volunteer Opportunities</h1>
+        <p>Find opportunities that match your interests and contribute to your community</p>
     </div>
 </section>
 
-<section class="opportunities-list-section">
+<section class="dashboard-section">
     <div class="container">
 
         {% if opportunities %}
 
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h3 class="fw-bold mb-0">Available Opportunities</h3>
+            <h3 class="fw-bold mb-0" style="color:#0d1b4d;">Available Opportunities</h3>
         </div>
 
         <div class="row g-4">
             {% for opportunity in opportunities %}
             <div class="col-md-6 col-lg-4">
-                <div class="opportunity-card h-100">
+                <div class="dashboard-card h-100">
 
-                    <div class="opportunity-card-body">
-                        <span class="opportunity-badge">
-                            {{ opportunity.category|default:"Volunteer" }}
-                        </span>
+                    <div class="dashboard-icon purple-icon" style="font-size: 1.5rem; width: 60px; height: 60px;">
+                        ♡
+                    </div>
 
-                        <h5 class="opportunity-title">
-                            {{ opportunity.name }}
-                        </h5>
+                    <span style="display: inline-block; background: #f1edff; color: #6f4cff; padding: 6px 14px; border-radius: 999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 18px;">
+                        {{ opportunity.category|default:"Volunteer" }}
+                    </span>
 
-                        <div class="opportunity-meta">
-                            <p>📍 {{ opportunity.location }}</p>
-                            <p>📅 {{ opportunity.date }}</p>
+                    <h5 style="color: #0d1b4d; font-size: 1.3rem; font-weight: 700; margin-bottom: 18px;">
+                        {{ opportunity.name }}
+                    </h5>
 
-                            {% if opportunity.organization %}
-                            <p>🏢 {{ opportunity.organization }}</p>
-                            {% endif %}
-                        </div>
+                    <div style="color: #5b6170; margin-bottom: 9px; font-size: 0.95rem;">
+                        <p><i class="bi bi-geo-alt"></i> {{ opportunity.location }}</p>
+                        <p><i class="bi bi-calendar"></i> {{ opportunity.date }}</p>
 
-                        <p class="opportunity-description">
-                            {{ opportunity.description|truncatewords:25 }}
-                        </p>
-
-                        <a href="{% url 'opportunities:opportunity_detail' opportunity.pk %}" class="opportunity-btn">
-                            View Details
-                        </a>
-
-                        {% if user.is_authenticated and user.role == 'student' %}
-                            {% if opportunity.id in applied_opportunity_ids %}
-                                <button class="opportunity-btn" disabled>
-                                    Already Applied
-                                </button>
-                            {% else %}
-                                <form method="POST" action="{% url 'applications:apply_opportunity' opportunity.id %}" style="margin-top:10px;"></form>
-                                    {% csrf_token %}
-                                    <button type="submit" class="opportunity-btn">
-                                        Apply
-                                    </button>
-                                </form>
-                            {% endif %}
+                        {% if opportunity.organization %}
+                        <p><i class="bi bi-building"></i> {{ opportunity.organization }}</p>
                         {% endif %}
                     </div>
+
+                    <p style="color: #3f4457; margin-top: 18px; min-height: 70px;">
+                        {{ opportunity.description|truncatewords:25 }}
+                    </p>
+
+                    <a href="{% url 'opportunities:opportunity_detail' opportunity.pk %}" class="dashboard-btn" style="display: block; margin-top: 22px;">
+                        View Details
+                    </a>
+
+                    {% if user.is_authenticated and user.role == 'student' %}
+                        {% if opportunity.id in applied_opportunity_ids %}
+                            <button class="dashboard-btn" disabled style="display: block; margin-top: 10px; opacity: 0.6; cursor: not-allowed; background: #e0e0e0; color: #888; border-color: #ccc;">
+                                Already Applied
+                            </button>
+                        {% else %}
+                            <form method="POST" action="{% url 'applications:apply_opportunity' opportunity.id %}" style="margin-top:10px;">
+                                {% csrf_token %}
+                                <button type="submit" class="dashboard-btn w-100">
+                                    Apply
+                                </button>
+                            </form>
+                        {% endif %}
+                    {% endif %}
 
                 </div>
             </div>
@@ -80,9 +76,9 @@
 
         {% else %}
 
-        <div class="empty-opportunities">
-            <h4>No opportunities available right now</h4>
-            <p>Check back later for new volunteer opportunities</p>
+        <div class="dashboard-card" style="padding: 70px 30px;">
+            <h4 style="color:#0d1b4d; font-weight: 700;">No opportunities available right now</h4>
+            <p style="color: #6c757d; margin-bottom: 0;">Check back later for new volunteer opportunities</p>
         </div>
 
         {% endif %}

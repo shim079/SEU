@@ -1,11 +1,30 @@
-<h2>Edit Profile</h2>
+{% extends 'base.html' %}
 
-<form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    
-    {{ user_form.as_p }}
-    {{ profile_form.as_p }}
+{% block title %}Edit Profile{% endblock %}
 
-    <button type="submit">Update</button>
-    <a href="{% url 'profile' %}">back</a>
-</form>
+{% block content %}
+<section class="dashboard-hero">
+    <div class="container text-center">
+        <h1>Edit Profile</h1>
+        <p>Update your personal information.</p>
+    </div>
+</section>
+
+<section class="dashboard-section">
+    <div class="container" style="max-width: 700px;">
+        <div class="dashboard-panel">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                {{ user_form.as_p }}
+                {{ profile_form.as_p }}
+
+                <div class="d-flex gap-3 mt-4">
+                    <button type="submit" class="dashboard-btn">Update</button>
+                    <a href="{% url 'profile' %}" class="btn btn-secondary">Back</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

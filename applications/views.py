@@ -21,8 +21,8 @@ from .models import Application
 def apply_opportunity(request, pk):
     opportunity = get_object_or_404(Opportunity, pk=pk)
 
-    if request.user.is_staff:
-        messages.error(request, "Admins cannot register for volunteer opportunities.")
+    if request.user.is_staff or request.user.role == 'agency':
+        messages.error(request, "Agencies cannot register for volunteer opportunities.")
         return redirect('opportunities:opportunity_list')
 
     existing_application = Application.objects.filter(

@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'opportunities',
     'applications',
     'accounts',
-    'chatbot',
     'student_profile',
 ]
 

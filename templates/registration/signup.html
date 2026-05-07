@@ -3,31 +3,45 @@
 {% block title %}Register{% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="form-box">
-        <h2>
-            {% if request.LANGUAGE_CODE == 'ar' %}
-                إنشاء حساب جديد
-            {% else %}
-                Create New Account
-            {% endif %}
-        </h2>
+<section class="dashboard-section">
+    <div class="container" style="max-width:500px;">
+        <div class="dashboard-panel d-block mt-5">
+            <h2 class="text-center fw-bold mb-4" style="color:#0d1b4d;">
+                {% if request.LANGUAGE_CODE == 'ar' %}إنشاء حساب جديد{% else %}Create New Account{% endif %}
+            </h2>
 
-        <form method="post">
-            {% csrf_token %}
+            <form method="post">
+                {% csrf_token %}
 
-            <input type="text" name="first_name" placeholder="{% if request.LANGUAGE_CODE == 'ar' %}الاسم الأول{% else %}First Name{% endif %}" required>
+                <div class="mb-3">
+                    <input type="text" name="first_name" class="form-control" placeholder="{% if request.LANGUAGE_CODE == 'ar' %}الاسم الأول{% else %}First Name{% endif %}" required>
+                </div>
 
-            <input type="email" name="email" placeholder="{% if request.LANGUAGE_CODE == 'ar' %}البريد الإلكتروني{% else %}Email{% endif %}" required>
+                <div class="mb-3">
+                    <input type="email" name="email" class="form-control" placeholder="{% if request.LANGUAGE_CODE == 'ar' %}البريد الإلكتروني{% else %}Email{% endif %}" required>
+                </div>
 
-            <input type="password" name="password" placeholder="{% if request.LANGUAGE_CODE == 'ar' %}كلمة المرور{% else %}Password{% endif %}" required>
+                <div class="mb-3">
+                    <input type="password" name="password" class="form-control" placeholder="{% if request.LANGUAGE_CODE == 'ar' %}كلمة المرور{% else %}Password{% endif %}" required>
+                </div>
 
-            <input type="password" name="confirm_password" placeholder="{% if request.LANGUAGE_CODE == 'ar' %}تأكيد كلمة المرور{% else %}Confirm Password{% endif %}" required>
+                <div class="mb-4">
+                    <input type="password" name="confirm_password" class="form-control" placeholder="{% if request.LANGUAGE_CODE == 'ar' %}تأكيد كلمة المرور{% else %}Confirm Password{% endif %}" required>
+                </div>
 
-            <button type="submit">
-                {% if request.LANGUAGE_CODE == 'ar' %}تسجيل{% else %}Register{% endif %}
-            </button>
-        </form>
+                <div class="mb-3">
+                    <label class="form-label">{% if request.LANGUAGE_CODE == 'ar' %}التسجيل كـ{% else %}Register As{% endif %}</label>
+                    <select name="role" class="form-control">
+                        <option value="student">{% if request.LANGUAGE_CODE == 'ar' %}طالب{% else %}Student{% endif %}</option>
+                        <option value="agency">{% if request.LANGUAGE_CODE == 'ar' %}منظمة تطوعية{% else %}Volunteer Organization{% endif %}</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="dashboard-btn w-100">
+                    {% if request.LANGUAGE_CODE == 'ar' %}تسجيل{% else %}Register{% endif %}
+                </button>
+            </form>
+        </div>
     </div>
-</div>
+</section>
 {% endblock %}

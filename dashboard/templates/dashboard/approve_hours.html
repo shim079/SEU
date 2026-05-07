@@ -3,46 +3,47 @@
 {% block title %}Approve Hours{% endblock %}
 
 {% block content %}
-<section class="section">
+<section class="dashboard-hero">
+    <div class="container text-center">
+        <h1>Approve Volunteer Hours</h1>
+        <p>Review and approve volunteer hour submissions.</p>
+    </div>
+</section>
+
+<section class="dashboard-section">
     <div class="container">
-
-        <div class="card">
-            <h2>Approve Volunteer Hours</h2>
-
-            <table>
-                
-    <tr>
-        <th>Student</th>
-        <th>Opportunity</th>
-        <th>Status</th>
-        <th>Hours</th>
-        <th>Action</th>
-    </tr>
-
-    {% for reg in registrations %}
-    <tr>
-        <td>{{ reg.student.first_name }}</td>
-
-        <td>{{ reg.opportunity.name }}</td>
-
-        <td>{{ reg.status }}</td>
-
-        <td>{{ reg.volunteer_hours }}</td>
-
-        <td>
-            {% if reg.status != 'completed' %}
-            <a href="{% url 'dashboard:complete_application' reg.pk %}">
-                Complete
-            </a>
-            {% else %}
-            Completed
-            {% endif %}
-        </td>
-    </tr>
-    {% endfor %}
-</table>
+        <div class="dashboard-panel">
+            <table class="dash-table">
+                <thead>
+                    <tr>
+                        <th>Student</th>
+                        <th>Opportunity</th>
+                        <th>Status</th>
+                        <th>Hours</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for reg in registrations %}
+                    <tr>
+                        <td>{{ reg.student.first_name }}</td>
+                        <td>{{ reg.opportunity.name }}</td>
+                        <td>{{ reg.status }}</td>
+                        <td>{{ reg.volunteer_hours }}</td>
+                        <td>
+                            {% if reg.status != 'completed' %}
+                            <a href="{% url 'dashboard:complete_application' reg.pk %}" class="action-link success">
+                                Complete
+                            </a>
+                            {% else %}
+                            <span class="text-success fw-bold">Completed</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
-
     </div>
 </section>
 {% endblock %}

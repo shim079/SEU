@@ -3,13 +3,19 @@
 {% block title %}Add Opportunity{% endblock %}
 
 {% block content %}
-<section class="section">
-    <div class="container" style="max-width:650px;">
-        <div class="card">
-            <h2>Add Opportunity</h2>
-            <p>Use the form below to create a new volunteer opportunity.</p>
+<section class="dashboard-hero">
+    <div class="container text-center">
+        <h1>Add Opportunity</h1>
+        <p>Use the form below to create a new volunteer opportunity.</p>
+    </div>
+</section>
 
-            <a href="{% url 'opportunity_add' %}" class="btn-primary">Open Add Form</a>
+<section class="dashboard-section">
+    <div class="container" style="max-width:650px;">
+        <div class="dashboard-panel text-center">
+            <a href="{% url 'opportunities:create_opportunity' %}" class="dashboard-btn">
+                Open Add Form
+            </a>
         </div>
     </div>
 </section>
