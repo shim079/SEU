@@ -1,0 +1,568 @@
+# Arabic translations for SEU Volunteer Platform.
+# Copyright (C) 2026 SEU Volunteer
+# This file is distributed under the same license as the Django project.
+# Automatically generated.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: SEU Volunteer 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: Arabic <ar@example.com>\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+msgid "SEU Volunteer"
+msgstr "متطوع SEU"
+
+msgid "Toggle navigation"
+msgstr "تبديل التنقل"
+
+msgid "Home"
+msgstr "الرئيسية"
+
+msgid "Opportunities"
+msgstr "الفرص"
+
+msgid "Dashboard"
+msgstr "لوحة التحكم"
+
+msgid "Profile"
+msgstr "الملف الشخصي"
+
+msgid "Notifications"
+msgstr "الإشعارات"
+
+msgid "Logout"
+msgstr "تسجيل الخروج"
+
+msgid "Login"
+msgstr "تسجيل الدخول"
+
+msgid "SEU Volunteer Platform. All rights reserved."
+msgstr "منصة متطوعي SEU. جميع الحقوق محفوظة."
+
+msgid "SEU Volunteer Platform"
+msgstr "منصة متطوعي SEU"
+
+msgid "Welcome to SEU Volunteer Platform"
+msgstr "مرحباً بك في منصة متطوعي SEU"
+
+msgid "Discover volunteer opportunities and track your participation easily"
+msgstr "اكتشف الفرص التطوعية وتابع مشاركتك بسهولة"
+
+msgid "Explore Opportunities"
+msgstr "استكشف الفرص"
+
+msgid "Volunteers"
+msgstr "المتطوعون"
+
+msgid "Organizations"
+msgstr "المنظمات"
+
+msgid "Hours Completed"
+msgstr "الساعات المنجزة"
+
+msgid "Email or username"
+msgstr "البريد الإلكتروني أو اسم المستخدم"
+
+msgid "Password"
+msgstr "كلمة المرور"
+
+msgid "Register"
+msgstr "تسجيل"
+
+msgid "Create New Account"
+msgstr "إنشاء حساب جديد"
+
+msgid "First Name"
+msgstr "الاسم الأول"
+
+msgid "Email"
+msgstr "البريد الإلكتروني"
+
+msgid "Confirm Password"
+msgstr "تأكيد كلمة المرور"
+
+msgid "Register As"
+msgstr "التسجيل كـ"
+
+msgid "Student"
+msgstr "طالب"
+
+msgid "Volunteer Organization"
+msgstr "منظمة تطوعية"
+
+msgid "Don't have an account? Register"
+msgstr "ليس لديك حساب؟ سجل الآن"
+
+msgid "Create Account"
+msgstr "إنشاء حساب"
+
+msgid "Last Name"
+msgstr "اسم العائلة"
+
+msgid "University ID"
+msgstr "الرقم الجامعي"
+
+msgid "Already have an account? Login"
+msgstr "لديك حساب بالفعل؟ تسجيل الدخول"
+
+msgid "All Opportunities"
+msgstr "جميع الفرص"
+
+msgid "Volunteer Opportunities"
+msgstr "الفرص التطوعية"
+
+msgid "Explore Volunteer Opportunities"
+msgstr "استكشف الفرص التطوعية"
+
+msgid "Find opportunities that match your interests and contribute to your community"
+msgstr "ابحث عن فرص تناسب اهتماماتك وساهم في مجتمعك"
+
+msgid "Available Opportunities"
+msgstr "الفرص المتاحة"
+
+msgid "View Details"
+msgstr "عرض التفاصيل"
+
+msgid "Already Applied"
+msgstr "تم التقديم مسبقاً"
+
+msgid "Apply"
+msgstr "تقديم"
+
+msgid "No opportunities available right now"
+msgstr "لا توجد فرص متاحة حالياً"
+
+msgid "Check back later for new volunteer opportunities"
+msgstr "تحقق لاحقاً للحصول على فرص تطوعية جديدة"
+
+msgid "Remote"
+msgstr "عن بُعد"
+
+msgid "Back to Opportunities"
+msgstr "العودة إلى الفرص"
+
+msgid "Volunteer Hours"
+msgstr "ساعات التطوع"
+
+msgid "Published Date"
+msgstr "تاريخ النشر"
+
+msgid "Today"
+msgstr "اليوم"
+
+msgid "Organization"
+msgstr "المنظمة"
+
+msgid "Description"
+msgstr "الوصف"
+
+msgid "Apply for this Opportunity"
+msgstr "تقدم لهذه الفرصة"
+
+msgid "Admins cannot apply for volunteer opportunities"
+msgstr "لا يمكن للمشرفين التقديم على الفرص التطوعية"
+
+msgid "Login to Apply"
+msgstr "سجل الدخول للتقديم"
+
+msgid "This opportunity is posted by an agency."
+msgstr "هذه الفرصة مقدمة من وكالة."
+
+msgid "Post New Opportunity"
+msgstr "نشر فرصة جديدة"
+
+msgid "Post a New Opportunity"
+msgstr "نشر فرصة جديدة"
+
+msgid "Title"
+msgstr "العنوان"
+
+msgid "Date"
+msgstr "التاريخ"
+
+msgid "Location"
+msgstr "الموقع"
+
+msgid "Save Opportunity"
+msgstr "حفظ الفرصة"
+
+msgid "Edit Opportunity"
+msgstr "تعديل الفرصة"
+
+msgid "Name"
+msgstr "الاسم"
+
+msgid "Hours"
+msgstr "الساعات"
+
+msgid "Save Changes"
+msgstr "حفظ التغييرات"
+
+msgid "Cancel"
+msgstr "إلغاء"
+
+msgid "Add Opportunity"
+msgstr "إضافة فرصة"
+
+msgid "Total Opportunities"
+msgstr "إجمالي الفرص"
+
+msgid "Total Applications"
+msgstr "إجمالي الطلبات"
+
+msgid "Total Volunteer Hours"
+msgstr "إجمالي ساعات التطوع"
+
+msgid "Recommended for you"
+msgstr "موصى به لك"
+
+msgid "Best Match"
+msgstr "أفضل تطابق"
+
+msgid "Volunteer"
+msgstr "تطوع"
+
+msgid "No recommendations yet"
+msgstr "لا توجد توصيات بعد"
+
+msgid "Certificates"
+msgstr "الشهادات"
+
+msgid "View and print certificates for approved volunteer participation."
+msgstr "عرض وطباعة شهادات المشاركة التطوعية المعتمدة."
+
+msgid "My Certificates"
+msgstr "شهاداتي"
+
+msgid "Student Dashboard"
+msgstr "لوحة تحكم الطالب"
+
+msgid "Track your volunteer activity and discover recommended opportunities."
+msgstr "تابع نشاطك التطوعي واكتشف الفرص الموصى بها."
+
+msgid "Volunteer Hours Tracking"
+msgstr "تتبع ساعات التطوع"
+
+msgid "Status"
+msgstr "الحالة"
+
+msgid "No registrations yet."
+msgstr "لا توجد تسجيلات بعد."
+
+msgid "Agency Dashboard"
+msgstr "لوحة تحكم الوكالة"
+
+msgid "Manage opportunities and volunteer requests."
+msgstr "إدارة الفرص وطلبات المتطوعين."
+
+msgid "View Volunteers"
+msgstr "عرض المتطوعين"
+
+msgid "My Opportunities"
+msgstr "فرصي"
+
+msgid "Student Applications"
+msgstr "طلبات الطلاب"
+
+msgid "No opportunities found."
+msgstr "لم يتم العثور على فرص."
+
+msgid "No student applications yet."
+msgstr "لا توجد طلبات طلاب بعد."
+
+msgid "Admin Dashboard"
+msgstr "لوحة تحكم المشرف"
+
+msgid "Overview of the platform."
+msgstr "نظرة عامة على المنصة."
+
+msgid "Total Users"
+msgstr "إجمالي المستخدمين"
+
+msgid "Active Opportunities"
+msgstr "الفرص النشطة"
+
+msgid "Pending Requests"
+msgstr "الطلبات المعلقة"
+
+msgid "Manage Users"
+msgstr "إدارة المستخدمين"
+
+msgid "Approve Hours"
+msgstr "الموافقة على الساعات"
+
+msgid "Opportunity Approval"
+msgstr "الموافقة على الفرص"
+
+msgid "Action"
+msgstr "الإجراء"
+
+msgid "Approve"
+msgstr "موافقة"
+
+msgid "Reject"
+msgstr "رفض"
+
+msgid "Delete"
+msgstr "حذف"
+
+msgid "Use the form below to create a new volunteer opportunity."
+msgstr "استخدم النموذج أدناه لإنشاء فرصة تطوعية جديدة."
+
+msgid "Open Add Form"
+msgstr "فتح نموذج الإضافة"
+
+msgid "Registered Volunteers"
+msgstr "المتطوعون المسجلون"
+
+msgid "Review and manage volunteer registrations."
+msgstr "مراجعة وإدارة تسجيلات المتطوعين."
+
+msgid "Actions"
+msgstr "الإجراءات"
+
+msgid "No volunteers registered yet."
+msgstr "لم يتم تسجيل متطوعين بعد."
+
+msgid "ID"
+msgstr "المعرف"
+
+msgid "Username"
+msgstr "اسم المستخدم"
+
+msgid "Role"
+msgstr "الدور"
+
+msgid "Active"
+msgstr "نشط"
+
+msgid "Disabled"
+msgstr "معطل"
+
+msgid "Disable"
+msgstr "تعطيل"
+
+msgid "Enable"
+msgstr "تفعيل"
+
+msgid "Current Admin"
+msgstr "المشرف الحالي"
+
+msgid "Approve Volunteer Hours"
+msgstr "الموافقة على ساعات التطوع"
+
+msgid "Review and approve volunteer hour submissions."
+msgstr "مراجعة والموافقة على طلبات ساعات التطوع."
+
+msgid "Complete"
+msgstr "إكمال"
+
+msgid "Completed"
+msgstr "مكتمل"
+
+msgid "My Profile"
+msgstr "ملفي الشخصي"
+
+msgid "View and manage your personal information."
+msgstr "عرض وإدارة معلوماتك الشخصية."
+
+msgid "Phone"
+msgstr "رقم الهاتف"
+
+msgid "Department"
+msgstr "القسم"
+
+msgid "Major"
+msgstr "التخصص"
+
+msgid "Interests"
+msgstr "الاهتمامات"
+
+msgid "Skills"
+msgstr "المهارات"
+
+msgid "Not set"
+msgstr "غير محدد"
+
+msgid "Edit Profile"
+msgstr "تعديل الملف الشخصي"
+
+msgid "View Recommendations"
+msgstr "عرض التوصيات"
+
+msgid "Update your personal information."
+msgstr "تحديث معلوماتك الشخصية."
+
+msgid "Update"
+msgstr "تحديث"
+
+msgid "Back"
+msgstr "رجوع"
+
+msgid "View and print your volunteer certificates"
+msgstr "عرض وطباعة شهاداتك التطوعية"
+
+msgid "No certificates yet"
+msgstr "لا توجد شهادات بعد"
+
+msgid "Your approved volunteer certificates will appear here."
+msgstr "شهاداتك التطوعية المعتمدة ستظهر هنا."
+
+msgid "Certificate of Completion"
+msgstr "شهادة إتمام"
+
+msgid "CERTIFICATE"
+msgstr "شهادة"
+
+msgid "OF COMPLETION"
+msgstr "إتمام"
+
+msgid "This certificate is presented to"
+msgstr "تُمنح هذه الشهادة إلى"
+
+msgid "has successfully completed the volunteer activity:"
+msgstr "لإتمامه بنجاح النشاط التطوعي:"
+
+msgid "Volunteer Program Director"
+msgstr "مدير برنامج التطوع"
+
+msgid "Download PDF"
+msgstr "تحميل PDF"
+
+msgid "English"
+msgstr "الإنجليزية"
+
+msgid "Arabic"
+msgstr "العربية"
+
+msgid "Stay updated with your activities"
+msgstr "ابق على اطلاع بأنشطتك"
+
+msgid "No notifications"
+msgstr "لا توجد إشعارات"
+
+msgid "You're all caught up"
+msgstr "كل شيء محدث"
+
+msgid "Apply for Opportunity"
+msgstr "التقديم على فرصة"
+
+msgid "Your application has been submitted successfully"
+msgstr "تم تقديم طلبك بنجاح"
+
+msgid "You have already applied for this opportunity."
+msgstr "لقد تقدمت لهذه الفرصة مسبقاً."
+
+msgid "Your Name"
+msgstr "اسمك"
+
+msgid "Message"
+msgstr "الرسالة"
+
+msgid "Why do you want to join this opportunity?"
+msgstr "لماذا تريد الانضمام لهذه الفرصة؟"
+
+msgid "Submit Application"
+msgstr "إرسال الطلب"
+
+msgid "Invalid username or password."
+msgstr "اسم المستخدم أو كلمة المرور غير صحيحة."
+
+msgid "Email is required."
+msgstr "البريد الإلكتروني مطلوب."
+
+msgid "Passwords do not match."
+msgstr "كلمات المرور غير متطابقة."
+
+msgid "Email already exists."
+msgstr "البريد الإلكتروني موجود بالفعل."
+
+msgid "Agencies cannot register for volunteer opportunities."
+msgstr "لا يمكن للوكالات التسجيل في الفرص التطوعية."
+
+msgid "Bio"
+msgstr "السيرة الذاتية"
+
+msgid "Write interests separated by commas, e.g. teaching, environment, community"
+msgstr "اكتب الاهتمامات مفصولة بفواصل، مثال: تدريس، بيئة، مجتمع"
+
+msgid "User"
+msgstr "المستخدم"
+
+msgid "Issued at"
+msgstr "تاريخ الإصدار"
+
+msgid "Category"
+msgstr "الفئة"
+
+msgid "Capacity"
+msgstr "السعة"
+
+msgid "Is active"
+msgstr "نشط"
+
+msgid "Created at"
+msgstr "تاريخ الإنشاء"
+
+msgid "Created by"
+msgstr "تم الإنشاء بواسطة"
+
+msgid "Pending"
+msgstr "معلق"
+
+msgid "Approved"
+msgstr "معتمد"
+
+msgid "Rejected"
+msgstr "مرفوض"
+
+msgid "Accepted"
+msgstr "مقبول"
+
+msgid "Volunteer hours"
+msgstr "ساعات التطوع"
+
+msgid "Applied at"
+msgstr "تاريخ التقديم"
+
+msgid "Congratulations! Your certificate for %(title)s is ready."
+msgstr "تهانينا! شهادتك عن %(title)s جاهزة."
+
+msgid "Profile Image"
+msgstr "صورة الملف الشخصي"
+
+msgid "SEU Volunteer Dashboard"
+msgstr "لوحة تحكم متطوعي SEU"
+
+msgid "No recommendations available yet."
+msgstr "لا توجد توصيات متاحة بعد."
+
+msgid "My Notifications"
+msgstr "إشعاراتي"
+
+msgid "Monitor platform statistics, volunteer activity, and certificates"
+msgstr "مراقبة إحصائيات المنصة ونشاط المتطوعين والشهادات"
+
+msgid "View Arabic"
+msgstr "عرض بالعربية"
+
+msgid "View English"
+msgstr "عرض بالإنجليزية"
+
+msgid "View and manage platform users."
+msgstr "عرض وإدارة مستخدمي المنصة."
+
+msgid "View and print your certificates for approved volunteer participation."
+msgstr "عرض وطباعة شهادات المشاركة التطوعية المعتمدة."
+
+msgid "Opportunity"
+msgstr "الفرصة"
+
+msgid "Administration"
+msgstr "الإدارة"

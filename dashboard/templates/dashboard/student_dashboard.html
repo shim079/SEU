@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
-{% block title %}Student Dashboard{% endblock %}
+{% block title %}{% trans "Student Dashboard" %}{% endblock %}
 
 {% block content %}
 <section class="dashboard-hero">
     <div class="container text-center">
-        <h1>SEU Volunteer Dashboard</h1>
-        <p>Track your volunteer activity and discover recommended opportunities.</p>
+        <h1>{% trans "SEU Volunteer Dashboard" %}</h1>
+        <p>{% trans "Track your volunteer activity and discover recommended opportunities." %}</p>
     </div>
 </section>
 
@@ -17,57 +18,57 @@
                 <div class="dashboard-card text-center">
                     <div class="dashboard-icon blue-icon"><i class="bi bi-folder"></i></div>
                     <h3>{{ total_opportunities }}</h3>
-                    <p>Total Opportunities</p>
+                    <p>{% trans "Total Opportunities" %}</p>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="dashboard-card text-center">
                     <div class="dashboard-icon purple-icon"><i class="bi bi-clipboard-check"></i></div>
                     <h3>{{ total_applications }}</h3>
-                    <p>Total Applications</p>
+                    <p>{% trans "Total Applications" %}</p>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="dashboard-card text-center">
                     <div class="dashboard-icon blue-icon"><i class="bi bi-clock-history"></i></div>
                     <h3>{{ total_hours }}</h3>
-                    <p>Total Volunteer Hours</p>
+                    <p>{% trans "Total Volunteer Hours" %}</p>
                 </div>
             </div>
         </div>
 
         <div class="dashboard-panel mb-5">
-            <h3 class="fw-bold mb-4 text-center" style="color:#0d1b4d;">Recommended for you</h3>
+            <h3 class="fw-bold mb-4 text-center" style="color:#0d1b4d;">{% trans "Recommended for you" %}</h3>
             <div class="row g-4">
                 {% for opportunity in recommended %}
                 <div class="col-md-6">
                     <div class="dashboard-card text-center h-100">
                         <div class="dashboard-icon purple-icon"><i class="bi bi-heart"></i></div>
                         <h5>{{ opportunity.name }}</h5>
-                        <p class="text-muted mb-1">{{ opportunity.category|default:"Volunteer" }}</p>
+                        <p class="text-muted mb-1">{{ opportunity.category|default:_("Volunteer") }}</p>
                         <p class="text-muted mb-1"><i class="bi bi-geo-alt"></i> {{ opportunity.location }}</p>
-                        <p class="text-muted mb-3"><i class="bi bi-clock"></i> {{ opportunity.hours }} hours</p>
+                        <p class="text-muted mb-3"><i class="bi bi-clock"></i> {% blocktrans with hours=opportunity.hours %}{{ hours }} hours{% endblocktrans %}</p>
                         <a href="{% url 'opportunities:opportunity_detail' opportunity.id %}" class="dashboard-btn">
-                            View Details
+                            {% trans "View Details" %}
                         </a>
                     </div>
                 </div>
                 {% empty %}
                 <div class="col-12 text-center">
-                    <p class="text-muted">No recommendations available yet.</p>
+                    <p class="text-muted">{% trans "No recommendations available yet." %}</p>
                 </div>
                 {% endfor %}
             </div>
         </div>
 
         <div class="dashboard-panel mb-5">
-            <h3 class="fw-bold mb-4" style="color:#0d1b4d;">Volunteer Hours Tracking</h3>
+            <h3 class="fw-bold mb-4" style="color:#0d1b4d;">{% trans "Volunteer Hours Tracking" %}</h3>
             <table class="dash-table">
                 <thead>
                     <tr>
-                        <th>Opportunity</th>
-                        <th>Status</th>
-                        <th>Hours</th>
+                        <th>{% trans "Opportunity" %}</th>
+                        <th>{% trans "Status" %}</th>
+                        <th>{% trans "Hours" %}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -79,7 +80,7 @@
                     </tr>
                     {% empty %}
                     <tr>
-                        <td colspan="3" class="text-center text-muted">No registrations yet.</td>
+                        <td colspan="3" class="text-center text-muted">{% trans "No registrations yet." %}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -88,11 +89,11 @@
 
         <div class="dashboard-panel">
             <div>
-                <h4 class="fw-bold mb-2" style="color:#0d1b4d;">Certificates</h4>
-                <p class="mb-0 text-muted">View and print your certificates for approved volunteer participation.</p>
+                <h4 class="fw-bold mb-2" style="color:#0d1b4d;">{% trans "Certificates" %}</h4>
+                <p class="mb-0 text-muted">{% trans "View and print your certificates for approved volunteer participation." %}</p>
             </div>
             <a href="{% url 'my_certificates' %}" class="dashboard-btn">
-                My Certificates <i class="bi bi-award"></i>
+                {% trans "My Certificates" %} <i class="bi bi-award"></i>
             </a>
         </div>
     </div>

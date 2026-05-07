@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate, get_user_model
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
+from django.utils.translation import gettext as _
 
 from opportunities.models import Opportunity
 from applications.models import Application
@@ -12,7 +13,21 @@ User = get_user_model()
 
 
 def home(request):
-    return render(request, 'home.html')
+    total_volunteers = User.objects.filter(role='student').count()
+    total_organizations = User.objects.filter(role='agency').count()
+    total_opportunities = Opportunity.objects.filter(is_active=True).count()
+    total_hours = Application.objects.filter(
+        status='completed'
+    ).aggregate(
+        total=Sum('volunteer_hours')
+    )['total'] or 0
+
+    return render(request, 'home.html', {
+        'total_volunteers': total_volunteers,
+        'total_organizations': total_organizations,
+        'total_opportunities': total_opportunities,
+        'total_hours': total_hours,
+    })
 
 
 def login_view(request):
@@ -40,7 +55,7 @@ def login_view(request):
             else:
                 return redirect('dashboard:student_dashboard')
 
-        messages.error(request, 'Invalid username or password.')
+        messages.error(request, _('Invalid username or password.'))
 
     return render(request, 'registration/login.html')
 
@@ -65,17 +80,17 @@ def register_view(request):
             role = 'student'
 
         if not email or email.strip() == "":
-            messages.error(request, 'Email is required.')
+            messages.error(request, _('Email is required.'))
             return render(request, 'registration/signup.html')
 
         email = email.strip()
 
         if password != confirm_password:
-            messages.error(request, 'Passwords do not match.')
+            messages.error(request, _('Passwords do not match.'))
             return render(request, 'registration/signup.html')
 
         if User.objects.filter(email=email).exists():
-            messages.error(request, 'Email already exists.')
+            messages.error(request, _('Email already exists.'))
             return render(request, 'registration/signup.html')
 
         user = User.objects.create_user(
@@ -314,7 +329,6 @@ def toggle_user_status(request, pk):
 
     user = User.objects.get(pk=pk)
 
-    # يمنع الأدمن يقفل نفسه
     if user != request.user:
         user.is_active = not user.is_active
         user.save()
@@ -330,7 +344,6 @@ def delete_user(request, pk):
 
     user = User.objects.get(pk=pk)
 
-    # يمنع الأدمن يحذف نفسه
     if user != request.user:
         user.delete()
 

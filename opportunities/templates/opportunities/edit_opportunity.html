@@ -1,61 +1,57 @@
 {% extends 'opportunities/base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Edit Opportunity" %}{% endblock %}
 
 {% block opportunity_content %}
 
 <div class="container mt-5">
-    <h2>Edit Opportunity</h2>
+    <h2>{% trans "Edit Opportunity" %}</h2>
 
     <form method="POST">
         {% csrf_token %}
 
-        <!-- Name -->
         <div class="mb-3">
-            <label>Name</label>
+            <label>{% trans "Name" %}</label>
             <input type="text" name="name" class="form-control"
                    value="{{ opportunity.name }}" required>
         </div>
 
-        <!-- Description -->
         <div class="mb-3">
-            <label>Description</label>
+            <label>{% trans "Description" %}</label>
             <textarea name="description" class="form-control" required>{{ opportunity.description }}</textarea>
         </div>
 
-        <!-- Location -->
         <div class="mb-3">
-            <label>Location</label>
+            <label>{% trans "Location" %}</label>
             <input type="text" name="location" class="form-control"
                    value="{{ opportunity.location }}" required>
         </div>
 
-        <!-- Date 🔥 (المهم هنا) -->
         <div class="mb-3">
-            <label>Date</label>
+            <label>{% trans "Date" %}</label>
             <input type="date" name="date" class="form-control"
                    value="{{ opportunity.date|date:'Y-m-d' }}" required>
         </div>
 
-        <!-- Hours -->
         <div class="mb-3">
-            <label>Hours</label>
+            <label>{% trans "Hours" %}</label>
             <input type="number" name="hours" class="form-control"
                    value="{{ opportunity.hours }}" required>
         </div>
 
-        <!-- Organization -->
         <div class="mb-3">
-            <label>Organization</label>
+            <label>{% trans "Organization" %}</label>
             <input type="text" name="organization" class="form-control"
                    value="{{ opportunity.organization }}" required>
         </div>
 
-        <!-- Buttons -->
         <button type="submit" class="btn btn-primary">
-            Save Changes
+            {% trans "Save Changes" %}
         </button>
 
         <a href="{% url 'dashboard' %}" class="btn btn-secondary">
-            Cancel
+            {% trans "Cancel" %}
         </a>
     </form>
 </div>

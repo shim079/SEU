@@ -1,10 +1,11 @@
+{% load i18n %}
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ LANGUAGE_CODE }}" dir="{% if LANGUAGE_CODE == 'ar' %}rtl{% else %}ltr{% endif %}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}SEU Volunteer{% endblock %}</title>
+    <title>{% block title %}{% trans "SEU Volunteer" %}{% endblock %}</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
@@ -16,39 +17,61 @@
 
 <nav class="navbar navbar-expand-lg custom-navbar">
     <div class="container">
-        <a class="navbar-brand" href="/">SEU Volunteer</a>
+        <a class="navbar-brand" href="/">{% trans "SEU Volunteer" %}</a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="{% trans 'Toggle navigation' %}">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="mainNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/">Home</a>
+                    <a class="nav-link" href="/">{% trans "Home" %}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'opportunities:opportunity_list' %}">Opportunities</a>
+                    <a class="nav-link" href="{% url 'opportunities:opportunity_list' %}">{% trans "Opportunities" %}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/dashboard/">Dashboard</a>
+                    <a class="nav-link" href="/dashboard/">{% trans "Dashboard" %}</a>
                 </li>
 
                 {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link" href="/profile/">Profile</a>
+                    <a class="nav-link" href="/profile/">{% trans "Profile" %}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/notifications/">Notifications</a>
+                    <a class="nav-link" href="/notifications/">{% trans "Notifications" %}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                    <a class="nav-link" href="{% url 'logout' %}">{% trans "Logout" %}</a>
                 </li>
                 {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'login' %}">Login</a>
+                    <a class="nav-link" href="{% url 'login' %}">{% trans "Login" %}</a>
                 </li>
                 {% endif %}
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="langDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{ LANGUAGE_CODE|upper }}
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="langDropdown">
+                        {% get_available_languages as LANGUAGES %}
+                        {% get_language_info_list for LANGUAGES as languages %}
+                        {% for lang in languages %}
+                        <li>
+                            <form action="{% url 'set_language' %}" method="post" style="display: inline;">
+                                {% csrf_token %}
+                                <input name="next" type="hidden" value="{{ request.path }}">
+                                <input name="language" type="hidden" value="{{ lang.code }}">
+                                <button type="submit" class="dropdown-item{% if lang.code == LANGUAGE_CODE %} active{% endif %}">
+                                    {{ lang.name_local }}
+                                </button>
+                            </form>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>
@@ -59,7 +82,7 @@
 <footer class="custom-footer">
     <div class="container">
         <div class="footer-content">
-            <p class="mb-0">&copy; 2026 SEU Volunteer Platform. All rights reserved.</p>
+            <p class="mb-0">&copy; 2026 {% trans "SEU Volunteer Platform. All rights reserved." %}</p>
             <div class="footer-icons">
                 <a href="#"><i class="bi bi-facebook"></i></a>
                 <a href="#"><i class="bi bi-twitter"></i></a>
@@ -71,7 +94,6 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
 {% block extra_js %}{% endblock %}
 
 </body>

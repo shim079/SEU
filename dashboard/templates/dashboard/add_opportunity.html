@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
-{% block title %}Add Opportunity{% endblock %}
+{% block title %}{% trans "Add Opportunity" %}{% endblock %}
 
 {% block content %}
 <section class="dashboard-hero">
     <div class="container text-center">
-        <h1>Add Opportunity</h1>
-        <p>Use the form below to create a new volunteer opportunity.</p>
+        <h1>{% trans "Add Opportunity" %}</h1>
+        <p>{% trans "Use the form below to create a new volunteer opportunity." %}</p>
     </div>
 </section>
 
@@ -14,7 +15,7 @@
     <div class="container" style="max-width:650px;">
         <div class="dashboard-panel text-center">
             <a href="{% url 'opportunities:create_opportunity' %}" class="dashboard-btn">
-                Open Add Form
+                {% trans "Open Add Form" %}
             </a>
         </div>
     </div>

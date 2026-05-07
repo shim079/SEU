@@ -1,15 +1,16 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
-{% block title %}Add Opportunity{% endblock %}
+{% block title %}{% trans "Add Opportunity" %}{% endblock %}
 
 {% block content %}
-<h2>Add Opportunity</h2>
+<h2>{% trans "Add Opportunity" %}</h2>
 
 <form method="post">
     {% csrf_token %}
-    <input type="text" name="title" placeholder="Title"><br><br>
-    <input type="text" name="location" placeholder="Location"><br><br>
-    <textarea name="description" placeholder="Description"></textarea><br><br>
-    <button type="submit">Save Opportunity</button>
+    <input type="text" name="title" placeholder="{% trans 'Title' %}"><br><br>
+    <input type="text" name="location" placeholder="{% trans 'Location' %}"><br><br>
+    <textarea name="description" placeholder="{% trans 'Description' %}"></textarea><br><br>
+    <button type="submit">{% trans "Save Opportunity" %}</button>
 </form>
 {% endblock %}

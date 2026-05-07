@@ -1,25 +1,26 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
-{% block title %}Login{% endblock %}
+{% block title %}{% trans "Login" %}{% endblock %}
 
 {% block content %}
 <section class="dashboard-section">
     <div class="container" style="max-width:500px;">
         <div class="dashboard-panel d-block mt-5">
             <h2 class="text-center fw-bold mb-4" style="color:#0d1b4d;">
-                {% if request.LANGUAGE_CODE == 'ar' %}تسجيل الدخول{% else %}Login{% endif %}
+                {% trans "Login" %}
             </h2>
 
             <form method="post">
                 {% csrf_token %}
                 <div class="mb-3">
-                    <input type="text" name="username" class="form-control" placeholder="{% if request.LANGUAGE_CODE == 'ar' %}البريد أو اسم المستخدم{% else %}Email or username{% endif %}">
+                    <input type="text" name="username" class="form-control" placeholder="{% trans 'Email or username' %}">
                 </div>
                 <div class="mb-4">
-                    <input type="password" name="password" class="form-control" placeholder="{% if request.LANGUAGE_CODE == 'ar' %}كلمة المرور{% else %}Password{% endif %}">
+                    <input type="password" name="password" class="form-control" placeholder="{% trans 'Password' %}">
                 </div>
                 <button type="submit" class="dashboard-btn w-100">
-                    {% if request.LANGUAGE_CODE == 'ar' %}دخول{% else %}Login{% endif %}
+                    {% trans "Login" %}
                 </button>
             </form>
         </div>

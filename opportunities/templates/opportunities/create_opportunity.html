@@ -1,46 +1,47 @@
 {% extends 'opportunities/base.html' %}
+{% load i18n %}
 
-{% block title %}Post New Opportunity{% endblock %}
+{% block title %}{% trans "Post New Opportunity" %}{% endblock %}
 
 {% block opportunity_content %}
 
 <div class="container mt-5 mb-5">
-    <h2 class="fw-bold mb-4">Post a New Opportunity</h2>
+    <h2 class="fw-bold mb-4">{% trans "Post a New Opportunity" %}</h2>
 
     <form method="POST">
         {% csrf_token %}
 
         <div class="mb-3">
-            <label class="form-label">Title</label>
+            <label class="form-label">{% trans "Title" %}</label>
             <input type="text" name="title" class="form-control" required>
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Description</label>
+            <label class="form-label">{% trans "Description" %}</label>
             <textarea name="description" class="form-control" rows="4" required></textarea>
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Date</label>
+            <label class="form-label">{% trans "Date" %}</label>
             <input type="date" name="date" class="form-control" required>
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Location</label>
+            <label class="form-label">{% trans "Location" %}</label>
             <input type="text" name="location" class="form-control" required>
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Volunteer Hours</label>
+            <label class="form-label">{% trans "Volunteer Hours" %}</label>
             <input type="number" name="hours" class="form-control" required>
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Organization</label>
+            <label class="form-label">{% trans "Organization" %}</label>
             <input type="text" name="organization" class="form-control" value="SEU Volunteer Agency">
         </div>
 
-        <button type="submit" class="mt-3 btn btn-primary">Save Opportunity</button>
+        <button type="submit" class="mt-3 btn btn-primary">{% trans "Save Opportunity" %}</button>
     </form>
 </div>
 

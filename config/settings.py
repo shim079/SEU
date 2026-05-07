@@ -16,14 +16,6 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 # APPS
-
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-SECRET_KEY = 'django-insecure-0*djcwk-n#5bon1vdp(at)j(5l)h1#7qhe0a%$o2j%1+x4z$xi'
-DEBUG = True
-ALLOWED_HOSTS = []
-
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -40,10 +32,7 @@ INSTALLED_APPS = [
     'student_profile',
 ]
 
- #maryam-merge-fix
 # MIDDLEWARE
-
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -56,15 +45,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-#maryam-merge-fix
 # URLS
 ROOT_URLCONF = 'config.urls'
 
 # TEMPLATES
-
-ROOT_URLCONF = 'config.urls'
-
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -82,22 +66,16 @@ TEMPLATES = [
     },
 ]
 
- #maryam-merge-fix
 # WSGI
 WSGI_APPLICATION = 'config.wsgi.application'
 
 # DATABASE
-
-WSGI_APPLICATION = 'config.wsgi.application'
-
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-# Override with PostgreSQL if DATABASE_URL exists (Render / production)
 if os.environ.get("DATABASE_URL"):
     DATABASES = {
         'default': dj_database_url.parse(
@@ -107,11 +85,7 @@ if os.environ.get("DATABASE_URL"):
         )
     }
 
-
-
 # PASSWORDS
-
-
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
@@ -119,22 +93,16 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
- #maryam-merge-fix
-# LANGUAGE
-LANGUAGE_CODE = 'ar'
-TIME_ZONE = 'Asia/Riyadh'
-
-LANGUAGE_CODE = 'en-us'
+# LANGUAGE / INTERNATIONALIZATION
+LANGUAGE_CODE = 'en'
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-#maryam-merge-fix
 LANGUAGES = [
-    ('ar', _('Arabic')),
     ('en', _('English')),
+    ('ar', _('Arabic')),
 ]
 
 LOCALE_PATHS = [
@@ -142,15 +110,12 @@ LOCALE_PATHS = [
 ]
 
 # STATIC FILES
-
-
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
- #maryam-merge-fix
 # DEFAULT FIELD
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -158,14 +123,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'users.CustomUser'
 
 # AUTH REDIRECTS
-LOGIN_REDIRECT_URL = 'dashboard'
-LOGOUT_REDIRECT_URL = 'home'
-LOGIN_URL = 'login'
-
-AUTH_USER_MODEL = 'users.CustomUser'
-
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/dashboard/'
 LOGOUT_REDIRECT_URL = '/'
-
-ALLOWED_HOSTS = ['*']

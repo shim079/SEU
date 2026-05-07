@@ -1,12 +1,13 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% load static %}
 
-{% block title %}Apply for Opportunity{% endblock %}
+{% block title %}{% trans "Apply for Opportunity" %}{% endblock %}
 
 {% block content %}
 <section class="dashboard-hero">
     <div class="container text-center">
-        <h1>Apply for Opportunity</h1>
+        <h1>{% trans "Apply for Opportunity" %}</h1>
         <p>{{ opportunity.name }}</p>
     </div>
 </section>
@@ -15,21 +16,21 @@
     <div class="container">
         {% if success %}
             <div class="alert alert-success text-center">
-                Your application has been submitted successfully
+                {% trans "Your application has been submitted successfully" %}
             </div>
             <div class="text-center mt-4">
                 <a href="{% url 'opportunities:opportunity_list' %}" class="dashboard-btn">
-                    Back to Opportunities
+                    {% trans "Back to Opportunities" %}
                 </a>
             </div>
 
         {% elif already_applied %}
             <div class="alert alert-warning text-center">
-                You have already applied for this opportunity.
+                {% trans "You have already applied for this opportunity." %}
             </div>
             <div class="text-center mt-4">
                 <a href="{% url 'opportunities:opportunity_list' %}" class="dashboard-btn">
-                    Back to Opportunities
+                    {% trans "Back to Opportunities" %}
                 </a>
             </div>
 
@@ -39,22 +40,22 @@
                     {% csrf_token %}
 
                     <div class="mb-3">
-                        <label class="form-label">Opportunity</label>
+                        <label class="form-label">{% trans "Opportunity" %}</label>
                         <input type="text" class="form-control" value="{{ opportunity.name }}" readonly>
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Your Name</label>
+                        <label class="form-label">{% trans "Your Name" %}</label>
                         <input type="text" class="form-control" value="{{ request.user.username }}" readonly>
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Message</label>
-                        <textarea class="form-control" rows="4" placeholder="Why do you want to join this opportunity?"></textarea>
+                        <label class="form-label">{% trans "Message" %}</label>
+                        <textarea class="form-control" rows="4" placeholder="{% trans 'Why do you want to join this opportunity?' %}"></textarea>
                     </div>
 
                     <button type="submit" class="dashboard-btn">
-                        Submit Application
+                        {% trans "Submit Application" %}
                     </button>
                 </form>
             </div>

@@ -1,14 +1,15 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load static %}
 
-{% block title %}Dashboard{% endblock %}
+{% block title %}{% trans "Dashboard" %}{% endblock %}
 
 {% block content %}
 
 <section class="dashboard-hero">
     <div class="container text-center">
-        <h1>SEU Volunteer Dashboard</h1>
-        <p>Monitor platform statistics, volunteer activity, and certificates</p>
+        <h1>{% trans "SEU Volunteer Dashboard" %}</h1>
+        <p>{% trans "Monitor platform statistics, volunteer activity, and certificates" %}</p>
     </div>
 </section>
 
@@ -20,7 +21,7 @@
                 <div class="dashboard-card text-center">
                     <div class="dashboard-icon blue-icon">▣</div>
                     <h2>{{ total_opportunities }}</h2>
-                    <p>Total Opportunities</p>
+                    <p>{% trans "Total Opportunities" %}</p>
                 </div>
             </div>
 
@@ -28,7 +29,7 @@
                 <div class="dashboard-card text-center">
                     <div class="dashboard-icon purple-icon">☑</div>
                     <h2>{{ total_applications }}</h2>
-                    <p>Total Applications</p>
+                    <p>{% trans "Total Applications" %}</p>
                 </div>
             </div>
 
@@ -36,13 +37,13 @@
                 <div class="dashboard-card text-center">
                     <div class="dashboard-icon blue-icon">◷</div>
                     <h2>{{ total_hours }}</h2>
-                    <p>Total Volunteer Hours</p>
+                    <p>{% trans "Total Volunteer Hours" %}</p>
                 </div>
             </div>
         </div>
 
         <div class="dashboard-card mb-5">
-            <h3 class="text-center mb-4">Recommended for you</h3>
+            <h3 class="text-center mb-4">{% trans "Recommended for you" %}</h3>
 
             {% if recommended %}
                 <div class="row g-4 justify-content-center">
@@ -53,7 +54,7 @@
                                 {% if forloop.first %}
                                     <span class="badge position-absolute top-0 start-0 m-3"
                                           style="background:#e0e7ff; color:#4338ca; font-size:11px; padding:7px 10px; border-radius:20px;">
-                                        Best Match
+                                        {% trans "Best Match" %}
                                     </span>
                                 {% endif %}
 
@@ -62,15 +63,15 @@
                                 <h5 class="mt-3">{{ rec.name }}</h5>
 
                                 <p class="text-muted mb-1">
-                                    {% if rec.category %}{{ rec.category }}{% else %}Volunteer{% endif %}
+                                    {% if rec.category %}{{ rec.category }}{% else %}{% trans "Volunteer" %}{% endif %}
                                 </p>
 
                                 <p class="text-muted mb-1">📍 {{ rec.location }}</p>
-                                <p class="text-muted mb-3">⏱ {{ rec.hours }} hours</p>
+                                <p class="text-muted mb-3">⏱ {% blocktrans with hours=rec.hours %}{{ hours }} hours{% endblocktrans %}</p>
 
                                 <a href="{% url 'opportunities:opportunity_detail' rec.id %}"
                                    class="btn btn-outline-primary rounded-pill btn-sm">
-                                    View Details
+                                    {% trans "View Details" %}
                                 </a>
 
                             </div>
@@ -78,18 +79,18 @@
                     {% endfor %}
                 </div>
             {% else %}
-                <p class="text-center text-muted">No recommendations yet</p>
+                <p class="text-center text-muted">{% trans "No recommendations yet" %}</p>
             {% endif %}
         </div>
 
         <div class="dashboard-card d-flex justify-content-between align-items-center">
             <div>
-                <h4>Certificates</h4>
-                <p class="mb-0">View and print certificates for approved volunteer participation.</p>
+                <h4>{% trans "Certificates" %}</h4>
+                <p class="mb-0">{% trans "View and print certificates for approved volunteer participation." %}</p>
             </div>
 
             <a href="{% url 'my_certificates' %}" class="dashboard-btn">
-                My Certificates 🏅
+                {% trans "My Certificates" %} 🏅
             </a>
         </div>
 

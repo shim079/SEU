@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
-{% block title %}Manage Users{% endblock %}
+{% block title %}{% trans "Manage Users" %}{% endblock %}
 
 {% block content %}
 <section class="dashboard-hero">
     <div class="container text-center">
-        <h1>Manage Users</h1>
-        <p>View and manage platform users.</p>
+        <h1>{% trans "Manage Users" %}</h1>
+        <p>{% trans "View and manage platform users." %}</p>
     </div>
 </section>
 
@@ -16,13 +17,13 @@
             <table class="dash-table">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Username</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Status</th>
-                        <th>Actions</th>
+                        <th>{% trans "ID" %}</th>
+                        <th>{% trans "Username" %}</th>
+                        <th>{% trans "Name" %}</th>
+                        <th>{% trans "Email" %}</th>
+                        <th>{% trans "Role" %}</th>
+                        <th>{% trans "Status" %}</th>
+                        <th>{% trans "Actions" %}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -35,19 +36,19 @@
                         <td>{{ user.role }}</td>
                         <td>
                             {% if user.is_active %}
-                            <span class="text-success fw-bold">Active</span>
+                            <span class="text-success fw-bold">{% trans "Active" %}</span>
                             {% else %}
-                            <span class="text-danger fw-bold">Disabled</span>
+                            <span class="text-danger fw-bold">{% trans "Disabled" %}</span>
                             {% endif %}
                         </td>
                         <td>
                             {% if user != request.user %}
                             <a href="{% url 'dashboard:toggle_user_status' user.pk %}" class="action-link">
-                                {% if user.is_active %}Disable{% else %}Enable{% endif %}
+                                {% if user.is_active %}{% trans "Disable" %}{% else %}{% trans "Enable" %}{% endif %}
                             </a> |
-                            <a href="{% url 'dashboard:delete_user' user.pk %}" class="action-link danger">Delete</a>
+                            <a href="{% url 'dashboard:delete_user' user.pk %}" class="action-link danger">{% trans "Delete" %}</a>
                             {% else %}
-                            <span class="text-muted">Current Admin</span>
+                            <span class="text-muted">{% trans "Current Admin" %}</span>
                             {% endif %}
                         </td>
                     </tr>

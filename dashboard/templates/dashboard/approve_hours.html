@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
-{% block title %}Approve Hours{% endblock %}
+{% block title %}{% trans "Approve Hours" %}{% endblock %}
 
 {% block content %}
 <section class="dashboard-hero">
     <div class="container text-center">
-        <h1>Approve Volunteer Hours</h1>
-        <p>Review and approve volunteer hour submissions.</p>
+        <h1>{% trans "Approve Volunteer Hours" %}</h1>
+        <p>{% trans "Review and approve volunteer hour submissions." %}</p>
     </div>
 </section>
 
@@ -16,11 +17,11 @@
             <table class="dash-table">
                 <thead>
                     <tr>
-                        <th>Student</th>
-                        <th>Opportunity</th>
-                        <th>Status</th>
-                        <th>Hours</th>
-                        <th>Action</th>
+                        <th>{% trans "Student" %}</th>
+                        <th>{% trans "Opportunity" %}</th>
+                        <th>{% trans "Status" %}</th>
+                        <th>{% trans "Hours" %}</th>
+                        <th>{% trans "Action" %}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -33,10 +34,10 @@
                         <td>
                             {% if reg.status != 'completed' %}
                             <a href="{% url 'dashboard:complete_application' reg.pk %}" class="action-link success">
-                                Complete
+                                {% trans "Complete" %}
                             </a>
                             {% else %}
-                            <span class="text-success fw-bold">Completed</span>
+                            <span class="text-success fw-bold">{% trans "Completed" %}</span>
                             {% endif %}
                         </td>
                     </tr>

@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
-{% block title %}Agency Dashboard{% endblock %}
+{% block title %}{% trans "Agency Dashboard" %}{% endblock %}
 
 {% block content %}
 <section class="dashboard-hero">
     <div class="container text-center">
-        <h1>Agency Dashboard</h1>
-        <p>Manage opportunities and volunteer requests.</p>
+        <h1>{% trans "Agency Dashboard" %}</h1>
+        <p>{% trans "Manage opportunities and volunteer requests." %}</p>
     </div>
 </section>
 
@@ -14,24 +15,24 @@
     <div class="container">
         <div class="d-flex gap-3 mb-5">
             <a href="{% url 'opportunities:create_opportunity' %}" class="dashboard-btn">
-                Add Opportunity
+                {% trans "Add Opportunity" %}
             </a>
             <a href="{% url 'dashboard:view_volunteers' %}" class="btn btn-secondary">
-                View Volunteers
+                {% trans "View Volunteers" %}
             </a>
         </div>
 
         <div class="dashboard-panel mb-5">
-            <h3 class="fw-bold mb-4" style="color:#0d1b4d;">My Opportunities</h3>
+            <h3 class="fw-bold mb-4" style="color:#0d1b4d;">{% trans "My Opportunities" %}</h3>
             <table class="dash-table">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Organization</th>
-                        <th>Location</th>
-                        <th>Date</th>
-                        <th>Hours</th>
-                        <th>Status</th>
+                        <th>{% trans "Name" %}</th>
+                        <th>{% trans "Organization" %}</th>
+                        <th>{% trans "Location" %}</th>
+                        <th>{% trans "Date" %}</th>
+                        <th>{% trans "Hours" %}</th>
+                        <th>{% trans "Status" %}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -46,7 +47,7 @@
                     </tr>
                     {% empty %}
                     <tr>
-                        <td colspan="6" class="text-center text-muted">No opportunities found.</td>
+                        <td colspan="6" class="text-center text-muted">{% trans "No opportunities found." %}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -54,13 +55,13 @@
         </div>
 
         <div class="dashboard-panel">
-            <h3 class="fw-bold mb-4" style="color:#0d1b4d;">Student Applications</h3>
+            <h3 class="fw-bold mb-4" style="color:#0d1b4d;">{% trans "Student Applications" %}</h3>
             <table class="dash-table">
                 <thead>
                     <tr>
-                        <th>Student</th>
-                        <th>Opportunity</th>
-                        <th>Status</th>
+                        <th>{% trans "Student" %}</th>
+                        <th>{% trans "Opportunity" %}</th>
+                        <th>{% trans "Status" %}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -72,7 +73,7 @@
                     </tr>
                     {% empty %}
                     <tr>
-                        <td colspan="3" class="text-center text-muted">No student applications yet.</td>
+                        <td colspan="3" class="text-center text-muted">{% trans "No student applications yet." %}</td>
                     </tr>
                     {% endfor %}
                 </tbody>

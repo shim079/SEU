@@ -1,0 +1,149 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Certificate</title>
+<style>
+@page { size: 210mm 210mm; margin: 14mm; }
+body {
+    margin: 0;
+    padding: 0;
+    font-family: serif;
+    background: #f9f6ef;
+    width: 182mm;
+    height: 182mm;
+    position: relative;
+    border: 3px solid #c7a86b;
+    box-sizing: border-box;
+}
+.inner-border {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    border: 1.5px solid #c7a86b;
+    pointer-events: none;
+}
+.logo {
+    text-align: center;
+    padding-top: 30px;
+}
+.logo img {
+    width: 120px;
+}
+.seal {
+    width: 50px;
+    height: 50px;
+    background: #8b0000;
+    border-radius: 50%;
+    margin: 8px auto;
+}
+.title {
+    text-align: center;
+    font-size: 36px;
+    font-weight: bold;
+    color: #1f2744;
+    margin-top: 10px;
+}
+.subtitle {
+    text-align: center;
+    font-size: 26px;
+    font-weight: 600;
+    color: #1f2744;
+    text-transform: uppercase;
+    margin-top: 4px;
+}
+.presented {
+    text-align: center;
+    font-size: 20px;
+    margin-top: 20px;
+    color: #1f2744;
+}
+.name {
+    text-align: center;
+    font-size: 44px;
+    margin-top: 16px;
+    color: #1f2744;
+}
+.line {
+    width: 300px;
+    margin: 8px auto 16px;
+    border-top: 1px solid #c9ae7a;
+}
+.desc {
+    text-align: center;
+    font-size: 20px;
+    margin-top: 10px;
+    color: #1f2744;
+}
+.activity {
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 12px;
+    color: #1f2744;
+}
+.bottom {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    right: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.sig-block {
+    text-align: center;
+    width: 200px;
+}
+.sig-line {
+    width: 180px;
+    margin: 0 auto 8px;
+    border-top: 1px solid #6b6b6b;
+}
+.sig-label {
+    font-size: 14px;
+    color: #1f2744;
+}
+.ornament {
+    color: #b9985a;
+    font-size: 28px;
+}
+</style>
+</head>
+<body>
+<div class="inner-border"></div>
+
+<div class="logo">
+    <img src="{{ logo_path }}" alt="Logo">
+    <div class="seal"></div>
+</div>
+
+<div class="title">CERTIFICATE</div>
+<div class="subtitle">OF COMPLETION</div>
+
+<div class="presented">This certificate is presented to</div>
+<div class="name">{{ certificate.user.username }}</div>
+<div class="line"></div>
+
+<div class="desc">has successfully completed the volunteer activity:</div>
+<div class="activity">{{ certificate.opportunity.name }}</div>
+<div class="line" style="width: 200px;"></div>
+
+<div class="bottom">
+    <div class="sig-block">
+        <div class="sig-line"></div>
+        <div class="sig-label">Date</div>
+        <div class="sig-label">{{ certificate.issued_at|date:"F d, Y" }}</div>
+    </div>
+    <div class="ornament">&#10086;</div>
+    <div class="sig-block">
+        <div class="sig-line"></div>
+        <div class="sig-label">Volunteer Program Director</div>
+        <div class="sig-label">Dr. Basimah Aljhine</div>
+    </div>
+</div>
+</body>
+</html>

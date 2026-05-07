@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
-{% block title %}View Volunteers{% endblock %}
+{% block title %}{% trans "View Volunteers" %}{% endblock %}
 
 {% block content %}
 <section class="dashboard-hero">
     <div class="container text-center">
-        <h1>Registered Volunteers</h1>
-        <p>Review and manage volunteer registrations.</p>
+        <h1>{% trans "Registered Volunteers" %}</h1>
+        <p>{% trans "Review and manage volunteer registrations." %}</p>
     </div>
 </section>
 
@@ -16,10 +17,10 @@
             <table class="dash-table">
                 <thead>
                     <tr>
-                        <th>Student</th>
-                        <th>Opportunity</th>
-                        <th>Status</th>
-                        <th>Actions</th>
+                        <th>{% trans "Student" %}</th>
+                        <th>{% trans "Opportunity" %}</th>
+                        <th>{% trans "Status" %}</th>
+                        <th>{% trans "Actions" %}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -29,13 +30,13 @@
                         <td>{{ volunteer.opportunity.name }}</td>
                         <td>{{ volunteer.status }}</td>
                         <td>
-                            <a href="{% url 'approve_registration' volunteer.id %}" class="action-link success">Approve</a> |
-                            <a href="{% url 'reject_registration' volunteer.id %}" class="action-link danger">Reject</a>
+                            <a href="{% url 'approve_registration' volunteer.id %}" class="action-link success">{% trans "Approve" %}</a> |
+                            <a href="{% url 'reject_registration' volunteer.id %}" class="action-link danger">{% trans "Reject" %}</a>
                         </td>
                     </tr>
                     {% empty %}
                     <tr>
-                        <td colspan="4" class="text-center text-muted">No volunteers registered yet.</td>
+                        <td colspan="4" class="text-center text-muted">{% trans "No volunteers registered yet." %}</td>
                     </tr>
                     {% endfor %}
                 </tbody>

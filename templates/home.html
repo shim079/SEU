@@ -1,6 +1,7 @@
 {% extends "base.html" %}
+{% load i18n %}
 
-{% block title %}SEU Volunteer Platform{% endblock %}
+{% block title %}{% trans "SEU Volunteer Platform" %}{% endblock %}
 
 {% block content %}
 <section class="hero-section">
@@ -11,12 +12,12 @@
     <div class="container hero-content">
         <div class="row justify-content-center">
             <div class="col-lg-9 text-center">
-                <h1 class="hero-title">Welcome to SEU Volunteer Platform</h1>
+                <h1 class="hero-title">{% trans "Welcome to SEU Volunteer Platform" %}</h1>
                 <p class="hero-text">
-                    Discover volunteer opportunities and track your participation easily
+                    {% trans "Discover volunteer opportunities and track your participation easily" %}
                 </p>
                 <a href="{% url 'opportunities:opportunity_list' %}" class="hero-btn">
-                    Explore Opportunities
+                    {% trans "Explore Opportunities" %}
                 </a>
             </div>
         </div>
@@ -31,8 +32,8 @@
                     <div class="stat-icon blue-icon">
                         <i class="bi bi-people"></i>
                     </div>
-                    <h3 class="stat-number blue-text">{{ total_volunteers|default:"120+" }}</h3>
-                    <p class="stat-label">Volunteers</p>
+                    <h3 class="stat-number blue-text">{{ total_volunteers }}</h3>
+                    <p class="stat-label">{% trans "Volunteers" %}</p>
                 </div>
             </div>
 
@@ -41,8 +42,8 @@
                     <div class="stat-icon purple-icon">
                         <i class="bi bi-building"></i>
                     </div>
-                    <h3 class="stat-number purple-text">{{ total_organizations|default:"35" }}</h3>
-                    <p class="stat-label">Organizations</p>
+                    <h3 class="stat-number purple-text">{{ total_organizations }}</h3>
+                    <p class="stat-label">{% trans "Organizations" %}</p>
                 </div>
             </div>
 
@@ -51,8 +52,8 @@
                     <div class="stat-icon blue-icon">
                         <i class="bi bi-heart"></i>
                     </div>
-                    <h3 class="stat-number blue-text">{{ total_opportunities|default:"60+" }}</h3>
-                    <p class="stat-label">Opportunities</p>
+                    <h3 class="stat-number blue-text">{{ total_opportunities }}</h3>
+                    <p class="stat-label">{% trans "Opportunities" %}</p>
                 </div>
             </div>
 
@@ -61,8 +62,8 @@
                     <div class="stat-icon purple-icon">
                         <i class="bi bi-clock"></i>
                     </div>
-                    <h3 class="stat-number purple-text">{{ total_hours|default:"500+" }}</h3>
-                    <p class="stat-label">Hours Completed</p>
+                    <h3 class="stat-number purple-text">{{ total_hours }}</h3>
+                    <p class="stat-label">{% trans "Hours Completed" %}</p>
                 </div>
             </div>
         </div>

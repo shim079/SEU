@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
-{% block title %}My Profile{% endblock %}
+{% block title %}{% trans "My Profile" %}{% endblock %}
 
 {% block content %}
 <section class="dashboard-hero">
     <div class="container text-center">
-        <h1>My Profile</h1>
-        <p>View and manage your personal information.</p>
+        <h1>{% trans "My Profile" %}</h1>
+        <p>{% trans "View and manage your personal information." %}</p>
     </div>
 </section>
 
@@ -22,44 +23,44 @@
             <table class="dash-table">
                 <tbody>
                     <tr>
-                        <th style="width: 180px;">Username</th>
+                        <th style="width: 180px;">{% trans "Username" %}</th>
                         <td>{{ profile.user.username }}</td>
                     </tr>
                     <tr>
-                        <th>Email</th>
+                        <th>{% trans "Email" %}</th>
                         <td>{{ profile.user.email }}</td>
                     </tr>
                     <tr>
-                        <th>Phone</th>
-                        <td>{{ profile.phone|default:"Not set" }}</td>
+                        <th>{% trans "Phone" %}</th>
+                        <td>{{ profile.phone|default:_("Not set") }}</td>
                     </tr>
                     <tr>
-                        <th>Department</th>
-                        <td>{{ profile.department|default:"Not set" }}</td>
+                        <th>{% trans "Department" %}</th>
+                        <td>{{ profile.department|default:_("Not set") }}</td>
                     </tr>
                     <tr>
-                        <th>Major</th>
-                        <td>{{ profile.major|default:"Not set" }}</td>
+                        <th>{% trans "Major" %}</th>
+                        <td>{{ profile.major|default:_("Not set") }}</td>
                     </tr>
                     <tr>
-                        <th>Interests</th>
-                        <td>{{ profile.interests|default:"Not set" }}</td>
+                        <th>{% trans "Interests" %}</th>
+                        <td>{{ profile.interests|default:_("Not set") }}</td>
                     </tr>
                     <tr>
-                        <th>Skills</th>
-                        <td>{{ profile.skills|default:"Not set" }}</td>
+                        <th>{% trans "Skills" %}</th>
+                        <td>{{ profile.skills|default:_("Not set") }}</td>
                     </tr>
                 </tbody>
             </table>
 
             <div class="text-center mt-4 d-flex justify-content-center gap-2 flex-wrap">
                 <a href="{% url 'edit_profile' %}" class="dashboard-btn">
-                    Edit Profile
+                    {% trans "Edit Profile" %}
                 </a>
                 <a href="{% url 'dashboard:student_dashboard' %}" class="dashboard-btn">
-                    View Recommendations
+                    {% trans "View Recommendations" %}
                 </a>
-                <a href="/" class="btn btn-secondary">Home</a>
+                <a href="/" class="btn btn-secondary">{% trans "Home" %}</a>
             </div>
         </div>
     </div>

@@ -1,20 +1,21 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% load static %}
 
-{% block title %}Opportunity Details | {{ opportunity.name }}{% endblock %}
+{% block title %}{% blocktrans with name=opportunity.name %}Opportunity Details | {{ name }}{% endblocktrans %}{% endblock %}
 
 {% block content %}
 <section class="dashboard-hero">
     <div class="container text-center">
         <h1>{{ opportunity.name }}</h1>
-        <p>{{ opportunity.location|default:"Remote" }}</p>
+        <p>{{ opportunity.location|default:_("Remote") }}</p>
     </div>
 </section>
 
 <section class="dashboard-section">
     <div class="container" style="max-width: 900px;">
         <a href="{% url 'opportunities:opportunity_list' %}" class="btn btn-outline-primary rounded-pill mb-4">
-            Back to Opportunities
+            {% trans "Back to Opportunities" %}
         </a>
 
         <div class="dashboard-panel">
@@ -33,20 +34,20 @@
             <div class="row g-3 mb-4">
                 <div class="col-md-4">
                     <div class="text-center p-3" style="background: #f8f9fa; border-radius: 12px;">
-                        <small class="text-muted d-block text-uppercase">Volunteer Hours</small>
-                        <strong class="fs-5">{{ opportunity.hours }} hours</strong>
+                        <small class="text-muted d-block text-uppercase">{% trans "Volunteer Hours" %}</small>
+                        <strong class="fs-5">{% blocktrans with hours=opportunity.hours %}{{ hours }} hours{% endblocktrans %}</strong>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="text-center p-3" style="background: #f8f9fa; border-radius: 12px;">
-                        <small class="text-muted d-block text-uppercase">Published Date</small>
-                        <strong class="fs-5">{{ opportunity.created_at|date:"d M Y"|default:"Today" }}</strong>
+                        <small class="text-muted d-block text-uppercase">{% trans "Published Date" %}</small>
+                        <strong class="fs-5">{{ opportunity.created_at|date:"d M Y"|default:_("Today") }}</strong>
                     </div>
                 </div>
                 {% if opportunity.organization %}
                 <div class="col-md-4">
                     <div class="text-center p-3" style="background: #f8f9fa; border-radius: 12px;">
-                        <small class="text-muted d-block text-uppercase">Organization</small>
+                        <small class="text-muted d-block text-uppercase">{% trans "Organization" %}</small>
                         <strong class="fs-5">{{ opportunity.organization }}</strong>
                     </div>
                 </div>
@@ -54,7 +55,7 @@
             </div>
 
             <div class="mb-4">
-                <h5 class="fw-bold mb-3" style="color: #0d1b4d;">Description</h5>
+                <h5 class="fw-bold mb-3" style="color: #0d1b4d;">{% trans "Description" %}</h5>
                 <div style="line-height: 1.8; color: #444;">
                     {{ opportunity.description|linebreaks }}
                 </div>
@@ -63,20 +64,20 @@
             <div class="text-center mt-4">
                 {% if user.is_authenticated and user.role == 'student' %}
                     <a href="{% url 'applications:apply_opportunity' opportunity.pk %}" class="dashboard-btn">
-                        Apply for this Opportunity
+                        {% trans "Apply for this Opportunity" %}
                     </a>
                 {% elif user.is_staff %}
-                    <p class="text-muted fw-bold">Admins cannot apply for volunteer opportunities</p>
+                    <p class="text-muted fw-bold">{% trans "Admins cannot apply for volunteer opportunities" %}</p>
                 {% else %}
                     <a href="{% url 'login' %}" class="dashboard-btn">
-                        Login to Apply
+                        {% trans "Login to Apply" %}
                     </a>
                 {% endif %}
             </div>
 
             <div class="mt-4">
                 <p class="text-muted small">
-                    This opportunity is posted by an agency.
+                    {% trans "This opportunity is posted by an agency." %}
                 </p>
             </div>
         </div>

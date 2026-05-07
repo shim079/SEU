@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
-{% block title %}Edit Profile{% endblock %}
+{% block title %}{% trans "Edit Profile" %}{% endblock %}
 
 {% block content %}
 <section class="dashboard-hero">
     <div class="container text-center">
-        <h1>Edit Profile</h1>
-        <p>Update your personal information.</p>
+        <h1>{% trans "Edit Profile" %}</h1>
+        <p>{% trans "Update your personal information." %}</p>
     </div>
 </section>
 
@@ -20,8 +21,8 @@
                 {{ profile_form.as_p }}
 
                 <div class="d-flex gap-3 mt-4">
-                    <button type="submit" class="dashboard-btn">Update</button>
-                    <a href="{% url 'profile' %}" class="btn btn-secondary">Back</a>
+                    <button type="submit" class="dashboard-btn">{% trans "Update" %}</button>
+                    <a href="{% url 'profile' %}" class="btn btn-secondary">{% trans "Back" %}</a>
                 </div>
             </form>
         </div>
