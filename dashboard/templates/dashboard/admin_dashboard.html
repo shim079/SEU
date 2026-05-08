@@ -72,7 +72,15 @@
                             <a href="{% url 'opportunities:approve_opportunity' opportunity.id %}" class="action-link success">{% trans "Approve" %}</a> |
                             <a href="{% url 'opportunities:reject_opportunity' opportunity.id %}" class="action-link danger">{% trans "Reject" %}</a>
                             {% endif %}
-                            <a href="{% url 'opportunities:delete_opportunity' opportunity.id %}" class="action-link danger">{% trans "Delete" %}</a>
+                        <form method="POST" action="{% url 'opportunities:delete_opportunity' opportunity.id %}" style="display:inline;">
+                    {% csrf_token %}
+                            <button 
+                            type="submit" 
+                            class="btn btn-sm btn-danger m-1"
+                            onclick="return confirm('{% trans "Are you sure you want to delete this opportunity?" %}')">
+                    {% trans "Delete" %}
+                           </button>
+                         </form>
                         </td>
                     </tr>
                     {% empty %}

@@ -8,7 +8,7 @@ from applications.models import Application
 @login_required
 def opportunity_list(request):
 
-    opportunities = Opportunity.objects.filter(is_active=True)
+    opportunities = Opportunity.objects.filter(is_active=True, status='approved')
 
     applied_opportunity_ids = Application.objects.filter(
         student=request.user
@@ -26,7 +26,8 @@ def opportunity_detail(request, pk):
     opportunity = get_object_or_404(
         Opportunity,
         pk=pk,
-        is_active=True
+        is_active=True,
+        status='approved'
     )
 
     return render(request, "opportunities/opportunity_detail.html", {
@@ -95,15 +96,19 @@ def edit_opportunity(request, pk):
 @login_required
 def delete_opportunity(request, pk):
 
-    if request.user.role != 'agency':
+    if request.user.role == 'agency':
+        opportunity = get_object_or_404(Opportunity, pk=pk, created_by=request.user)
+        redirect_url = 'dashboard:agency_dashboard'
+    elif request.user.role == 'admin':
+        opportunity = get_object_or_404(Opportunity, pk=pk)
+        redirect_url = 'dashboard:admin_dashboard'
+    else:
         return redirect('home')
-
-    opportunity = get_object_or_404(Opportunity, pk=pk, created_by=request.user)
 
     if request.method == "POST":
         opportunity.delete()
 
-    return redirect("dashboard:agency_dashboard")
+    return redirect(redirect_url)
 
 
 @login_required

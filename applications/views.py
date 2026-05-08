@@ -8,7 +8,7 @@ from .models import Application
 
 @login_required
 def apply_opportunity(request, pk):
-    opportunity = get_object_or_404(Opportunity, pk=pk)
+    opportunity = get_object_or_404(Opportunity, pk=pk, status='approved')
 
     if request.user.is_staff or request.user.role == 'agency':
         messages.error(request, _("Agencies cannot register for volunteer opportunities."))

@@ -250,6 +250,23 @@ def add_opportunity(request):
     if request.user.role != 'agency':
         return redirect('home')
 
+    if request.method == "POST":
+        Opportunity.objects.create(
+            title=request.POST.get("name") or request.POST.get("title"),
+            description=request.POST.get("description"),
+            location=request.POST.get("location"),
+            date=request.POST.get("date"),
+            hours=request.POST.get("hours") or 1,
+            capacity=request.POST.get("capacity") or 0,
+            category=request.POST.get("category"),
+            organization=request.POST.get("organization") or "SEU Volunteer Agency",
+            status='pending',
+            is_active=True,
+            created_by=request.user
+        )
+
+        return redirect("dashboard:agency_dashboard")
+
     return render(
         request,
         'dashboard/add_opportunity.html'

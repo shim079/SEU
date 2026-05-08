@@ -279,11 +279,7 @@ body {
     <a href="{% url 'certificate_ar' certificate.id %}" class="lang-btn">Arabic</a>
 </div>
 
-<div style="text-align: center;">
-<a href="{% url 'download_certificate_pdf' certificate.id %}" class="pdf-btn">
-    تحميل PDF
-</a>
-</div>
+<button class="pdf-btn" onclick="window.print()">تحميل PDF</button>
 
 </body>
 </html>

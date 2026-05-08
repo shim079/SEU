@@ -236,9 +236,7 @@ cursor: pointer;
 </div>
 
 <div style="text-align: center;">
-<a href="{% url 'download_certificate_pdf' certificate.id %}" class="pdf-btn">
-    Download PDF
-</a>
+    <button class="pdf-btn" onclick="window.print()">Download PDF</button>
 </div>
 
 </body>
