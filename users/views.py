@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Certificate
 from accounts.models import Notification
 from django.template.loader import get_template, render_to_string
-from xhtml2pdf import pisa
+
 
 @login_required
 def my_certificates(request):
