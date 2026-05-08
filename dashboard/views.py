@@ -3,10 +3,12 @@ from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate, get_user_model
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
+from django.utils import timezone
 from django.utils.translation import gettext as _
 
 from opportunities.models import Opportunity
 from applications.models import Application
+from accounts.models import Notification
 from dashboard.ai_recommendation import recommend_opportunities
 
 User = get_user_model()
@@ -251,7 +253,18 @@ def add_opportunity(request):
         return redirect('home')
 
     if request.method == "POST":
-        Opportunity.objects.create(
+
+        deadline_str = request.POST.get("application_deadline")
+        deadline = timezone.now()
+        if deadline_str:
+            try:
+                deadline = timezone.datetime.fromisoformat(deadline_str)
+                if timezone.is_naive(deadline):
+                    deadline = timezone.make_aware(deadline)
+            except ValueError:
+                deadline = timezone.now()
+
+        opportunity = Opportunity.objects.create(
             title=request.POST.get("name") or request.POST.get("title"),
             description=request.POST.get("description"),
             location=request.POST.get("location"),
@@ -260,10 +273,18 @@ def add_opportunity(request):
             capacity=request.POST.get("capacity") or 0,
             category=request.POST.get("category"),
             organization=request.POST.get("organization") or "SEU Volunteer Agency",
+            application_deadline=deadline,
             status='pending',
             is_active=True,
             created_by=request.user
         )
+
+        admin_users = User.objects.filter(is_staff=True)
+        for admin in admin_users:
+            Notification.objects.create(
+                user=admin,
+                message=_("A new opportunity '%(title)s' has been submitted by %(agency)s and is awaiting your approval.") % {'title': opportunity.title, 'agency': request.user.get_full_name() or request.user.username}
+            )
 
         return redirect("dashboard:agency_dashboard")
 
@@ -279,9 +300,17 @@ def view_volunteers(request):
     if request.user.role != 'agency' and not request.user.is_staff:
         return redirect('home')
 
+    opportunities = Opportunity.objects.filter(created_by=request.user)
+
+    volunteers = Application.objects.filter(
+        opportunity__in=opportunities,
+        participation_confirmed=True
+    ).select_related('student', 'opportunity').order_by('-applied_at')
+
     return render(
         request,
-        'dashboard/view_volunteers.html'
+        'dashboard/view_volunteers.html',
+        {'volunteers': volunteers}
     )
 
 
@@ -336,6 +365,60 @@ def complete_application(request, pk):
     application.save()
 
     return redirect('dashboard:approve_hours')
+
+
+@login_required
+def accept_application(request, pk):
+
+    if request.user.role != 'agency':
+        return redirect('home')
+
+    application = Application.objects.select_related('opportunity').get(pk=pk)
+
+    if application.opportunity.created_by != request.user:
+        messages.error(request, _("You can only manage applications for your own opportunities."))
+        return redirect('dashboard:agency_dashboard')
+
+    application.status = 'accepted'
+    application.save()
+
+    return redirect('dashboard:agency_dashboard')
+
+
+@login_required
+def confirm_participation(request, pk):
+
+    if request.user.role != 'agency':
+        return redirect('home')
+
+    application = Application.objects.select_related('opportunity').get(pk=pk)
+
+    if application.opportunity.created_by != request.user:
+        messages.error(request, _("You can only manage applications for your own opportunities."))
+        return redirect('dashboard:agency_dashboard')
+
+    application.participation_confirmed = True
+    application.save()
+
+    return redirect('dashboard:agency_dashboard')
+
+
+@login_required
+def reject_application(request, pk):
+
+    if request.user.role != 'agency':
+        return redirect('home')
+
+    application = Application.objects.select_related('opportunity').get(pk=pk)
+
+    if application.opportunity.created_by != request.user:
+        messages.error(request, _("You can only manage applications for your own opportunities."))
+        return redirect('dashboard:agency_dashboard')
+
+    application.status = 'rejected'
+    application.save()
+
+    return redirect('dashboard:agency_dashboard')
 
 
 @login_required

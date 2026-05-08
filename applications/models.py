@@ -16,6 +16,7 @@ class Application(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending', verbose_name=_('Status'))
     volunteer_hours = models.DecimalField(max_digits=5, decimal_places=2, default=0.00, verbose_name=_('Volunteer hours'))
     applied_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Applied at'))
+    participation_confirmed = models.BooleanField(default=False, verbose_name=_('Participation confirmed'))
 
     def __str__(self):
         return f"{self.student.username} - {self.opportunity.title} - {self.status}"
@@ -23,9 +24,22 @@ class Application(models.Model):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
+        from accounts.models import Notification
+
+        if self.status == 'accepted':
+            message = _("Congratulations! Your application for '%(title)s' has been accepted.") % {'title': self.opportunity.title}
+
+            if not Notification.objects.filter(
+                user=self.student,
+                message=message
+            ).exists():
+                Notification.objects.create(
+                    user=self.student,
+                    message=message
+                )
+
         if self.status == 'completed':
             from users.models import Certificate
-            from accounts.models import Notification
 
             if not Certificate.objects.filter(
                 user=self.student,

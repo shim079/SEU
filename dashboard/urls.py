@@ -34,4 +34,22 @@ urlpatterns = [
         views.complete_application,
         name='complete_application'
     ),
+
+    path(
+        'accept-application/<int:pk>/',
+        views.accept_application,
+        name='accept_application'
+    ),
+
+    path(
+        'reject-application/<int:pk>/',
+        views.reject_application,
+        name='reject_application'
+    ),
+
+    path(
+        'confirm-participation/<int:pk>/',
+        views.confirm_participation,
+        name='confirm_participation'
+    ),
 ]

@@ -569,3 +569,69 @@ msgstr "الفرصة"
 
 msgid "Administration"
 msgstr "الإدارة"
+
+msgid "Your application for '%(title)s' has been submitted successfully. It is currently under review. We will update you soon."
+msgstr "تم تقديم طلبك لـ '%(title)s' بنجاح. الطلب قيد المراجعة حالياً. سنقوم بتحديثك قريباً."
+
+msgid "Congratulations! Your application for '%(title)s' has been accepted."
+msgstr "تهانينا! تم قبول طلبك لـ '%(title)s'."
+
+msgid "You can only manage applications for your own opportunities."
+msgstr "يمكنك فقط إدارة طلبات الفرص الخاصة بك."
+
+msgid "Accept"
+msgstr "قبول"
+
+msgid "Accepted"
+msgstr "مقبول"
+
+msgid "Reject"
+msgstr "رفض"
+
+msgid "Confirm Participation"
+msgstr "تأكيد المشاركة"
+
+msgid "Confirmed"
+msgstr "تم التأكيد"
+
+msgid "Agency"
+msgstr "الوكالة"
+
+msgid "Confirmed Volunteers"
+msgstr "المتطوعون المؤكدون"
+
+msgid "Students whose participation has been confirmed."
+msgstr "الطلاب الذين تم تأكيد مشاركتهم."
+
+msgid "Admin Approval"
+msgstr "موافقة المشرف"
+
+msgid "Approved"
+msgstr "معتمد"
+
+msgid "Are you sure?"
+msgstr "هل أنت متأكد؟"
+
+msgid "A new application has been submitted by %(student)s for '%(title)s'. Please review it as soon as possible."
+msgstr "تم تقديم طلب جديد من %(student)s لـ '%(title)s'. يرجى مراجعته في أقرب وقت ممكن."
+
+msgid "Your opportunity '%(title)s' has been approved by the admin and is now available for students."
+msgstr "تمت الموافقة على فرصتك '%(title)s' من قبل المشرف وهي الآن متاحة للطلاب."
+
+msgid "A new opportunity '%(title)s' has been submitted by %(agency)s and is awaiting your approval."
+msgstr "تم تقديم فرصة جديدة '%(title)s' من %(agency)s وهي في انتظار موافقتك."
+
+msgid "Expired"
+msgstr "منتهي"
+
+msgid "Deadline"
+msgstr "الموعد النهائي"
+
+msgid "Application Deadline"
+msgstr "الموعد النهائي للتقديم"
+
+msgid "Application deadline"
+msgstr "الموعد النهائي للتقديم"
+
+msgid "The application deadline for this opportunity has passed."
+msgstr "لقد انتهى الموعد النهائي للتقديم على هذه الفرصة."

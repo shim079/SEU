@@ -20,6 +20,7 @@
                         <th>{% trans "Student" %}</th>
                         <th>{% trans "Opportunity" %}</th>
                         <th>{% trans "Status" %}</th>
+                        <th>{% trans "Agency" %}</th>
                         <th>{% trans "Hours" %}</th>
                         <th>{% trans "Action" %}</th>
                     </tr>
@@ -30,6 +31,13 @@
                         <td>{{ reg.student.first_name }}</td>
                         <td>{{ reg.opportunity.name }}</td>
                         <td>{{ reg.status }}</td>
+                        <td>
+                            {% if reg.participation_confirmed %}
+                                <span class="text-success fw-bold">{% trans "Confirmed" %}</span>
+                            {% else %}
+                                <span class="text-muted">—</span>
+                            {% endif %}
+                        </td>
                         <td>{{ reg.volunteer_hours }}</td>
                         <td>
                             {% if reg.status != 'completed' %}

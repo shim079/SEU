@@ -6,13 +6,17 @@
 {% block content %}
 <section class="dashboard-hero">
     <div class="container text-center">
-        <h1>{% trans "Registered Volunteers" %}</h1>
-        <p>{% trans "Review and manage volunteer registrations." %}</p>
+        <h1>{% trans "Confirmed Volunteers" %}</h1>
+        <p>{% trans "Students whose participation has been confirmed." %}</p>
     </div>
 </section>
 
 <section class="dashboard-section">
     <div class="container">
+        <div class="container" style="max-width: 900px;">
+        <a href="{% url 'dashboard:agency_dashboard' %}" class="btn btn btn-secondary rounded-pill mb-4">
+            {% trans "Back to Dashboard" %}
+        </a>
         <div class="dashboard-panel">
             <table class="dash-table">
                 <thead>
@@ -20,7 +24,7 @@
                         <th>{% trans "Student" %}</th>
                         <th>{% trans "Opportunity" %}</th>
                         <th>{% trans "Status" %}</th>
-                        <th>{% trans "Actions" %}</th>
+                        <th>{% trans "Admin Approval" %}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,8 +34,11 @@
                         <td>{{ volunteer.opportunity.name }}</td>
                         <td>{{ volunteer.status }}</td>
                         <td>
-                            <a href="{% url 'approve_registration' volunteer.id %}" class="action-link success">{% trans "Approve" %}</a> |
-                            <a href="{% url 'reject_registration' volunteer.id %}" class="action-link danger">{% trans "Reject" %}</a>
+                            {% if volunteer.status == 'completed' %}
+                                <span class="text-success fw-bold">{% trans "Approved" %}</span>
+                            {% else %}
+                                <span class="text-warning fw-bold">{% trans "Pending" %}</span>
+                            {% endif %}
                         </td>
                     </tr>
                     {% empty %}

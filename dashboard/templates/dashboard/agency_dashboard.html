@@ -45,17 +45,26 @@
                         <td>{{ opportunity.date }}</td>
                         <td>{{ opportunity.hours }}</td>
                         <td>{{ opportunity.status }}</td>
-                        <td class="d-flex gap-2">
-                            <a href="{% url 'opportunities:edit_opportunity' opportunity.pk %}" class="btn btn-sm btn-primary">
-                                {% trans "Edit" %}
-                            </a>
-                            <form method="POST" action="{% url 'opportunities:delete_opportunity' opportunity.pk %}" style="display:inline;">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('{% trans "Are you sure you want to delete this opportunity?" %}')">
-                                    {% trans "Delete" %}
-                                </button>
-                            </form>
-                        </td>
+                        <td class="align-middle">
+        <div class="d-flex gap-2">
+            <a href="{% url 'opportunities:edit_opportunity' opportunity.pk %}"
+               class="btn btn-sm btn-primary">
+                {% trans "Edit" %}
+            </a>
+
+            <form method="POST"
+                  action="{% url 'opportunities:delete_opportunity' opportunity.pk %}"
+                  style="display:inline;">
+                {% csrf_token %}
+
+                <button type="submit"
+                        class="btn btn-sm btn-danger"
+                        onclick="return confirm('{% trans "Are you sure you want to delete this opportunity?" %}')">
+                    {% trans "Delete" %}
+                </button>
+            </form>
+        </div>
+    </td>
                     </tr>
                     {% empty %}
                     <tr>
@@ -74,6 +83,7 @@
                         <th>{% trans "Student" %}</th>
                         <th>{% trans "Opportunity" %}</th>
                         <th>{% trans "Status" %}</th>
+                        <th>{% trans "Actions" %}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -82,10 +92,25 @@
                         <td>{{ application.student }}</td>
                         <td>{{ application.opportunity.name }}</td>
                         <td>{{ application.status }}</td>
+                        <td>
+                            {% if application.status == 'pending' %}
+                                <a href="{% url 'dashboard:accept_application' application.pk %}" class="btn btn-sm btn-success">{% trans "Accept" %}</a>
+                                <a href="{% url 'dashboard:reject_application' application.pk %}" class="btn btn-sm btn-danger" onclick="return confirm('{% trans "Are you sure?" %}')">{% trans "Reject" %}</a>
+                            {% elif application.status == 'accepted' and not application.participation_confirmed %}
+                                <span class="text-success fw-bold">{% trans "Accepted" %}</span>
+                                <a href="{% url 'dashboard:confirm_participation' application.pk %}" class="m-1 btn btn-sm btn-primary">{% trans "Confirm Participation" %}</a>
+                            {% elif application.status == 'accepted' and application.participation_confirmed %}
+                                <span class="text-success fw-bold">{% trans "Confirmed" %}</span>
+                            {% elif application.status == 'rejected' %}
+                                <span class="text-danger fw-bold">{% trans "Rejected" %}</span>
+                            {% else %}
+                                <span class="text-muted">{{ application.status }}</span>
+                            {% endif %}
+                        </td>
                     </tr>
                     {% empty %}
                     <tr>
-                        <td colspan="3" class="text-center text-muted">{% trans "No student applications yet." %}</td>
+                        <td colspan="4" class="text-center text-muted">{% trans "No student applications yet." %}</td>
                     </tr>
                     {% endfor %}
                 </tbody>

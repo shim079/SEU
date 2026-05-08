@@ -61,8 +61,16 @@
                 </div>
             </div>
 
+            <div class="mb-3">
+                <p><i class="bi bi-clock"></i> <strong>{% trans "Application Deadline" %}:</strong> {{ opportunity.application_deadline|date:"d M Y - h:i A" }}</p>
+            </div>
+
             <div class="text-center mt-4">
-                {% if user.is_authenticated and user.role == 'student' %}
+                {% if opportunity.application_deadline < now %}
+                    <button class="dashboard-btn" disabled style="opacity: 0.6; cursor: not-allowed; background: #dc3545; color: #fff; border-color: #dc3545;">
+                        {% trans "Expired" %}
+                    </button>
+                {% elif user.is_authenticated and user.role == 'student' %}
                     <a href="{% url 'applications:apply_opportunity' opportunity.pk %}" class="dashboard-btn">
                         {% trans "Apply for this Opportunity" %}
                     </a>
