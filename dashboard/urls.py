@@ -52,4 +52,18 @@ urlpatterns = [
         views.confirm_participation,
         name='confirm_participation'
     ),
+
+    path(
+        'agency-performance/',
+        views.agency_performance_data,
+        name='agency_performance_data'
+    ),
+
+
+    path(
+        'agency/radar-data/',
+        views.agency_radar_data,
+        name='agency_radar_data'
+    ),
+
 ]

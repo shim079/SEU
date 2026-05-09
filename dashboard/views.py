@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate, get_user_model
@@ -5,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
 from django.utils import timezone
 from django.utils.translation import gettext as _
-
+from django.db.models import Sum
 from opportunities.models import Opportunity
 from applications.models import Application
 from accounts.models import Notification
@@ -192,19 +193,33 @@ def agency_dashboard(request):
 
     if request.user.role != 'agency':
         return redirect('home')
-
+    #calculate opporunities
     opportunities = Opportunity.objects.filter(created_by=request.user).order_by('-id')
+    total_opportunities = opportunities.count()
 
+    #calculate applications
     applications = Application.objects.filter(
         opportunity__in=opportunities
     ).select_related(
         'student',
         'opportunity'
     ).order_by('-applied_at')
+    total_applications = applications.count()
+
+    #calculate volunteer hours
+    total_hours = Application.objects.filter(
+        opportunity__created_by=request.user,
+        status='completed'
+    ).aggregate(
+        total=Sum('volunteer_hours')
+    )['total'] or 0
 
     context = {
         'opportunities': opportunities,
         'applications': applications,
+        'total_hours': total_hours,
+        'total_applications': total_applications,
+        'total_opportunities': total_opportunities,
     }
 
     return render(
@@ -232,11 +247,22 @@ def admin_dashboard(request):
         status='pending'
     ).count()
 
+    approved_requests = Opportunity.objects.filter(status="approved").order_by('-id')
+    approved_requests_count = approved_requests.count()
+
+    total_completed_hours = Application.objects.filter(
+    status="completed").aggregate(total=Sum("volunteer_hours"))["total"] or 0
+
+    rejected_requests = Application.objects.filter(status="rejected").count()
+
     context = {
         'total_users': total_users,
         'active_opportunities': active_opportunities,
         'pending_requests': pending_requests,
         'opportunities': opportunities,
+        "approved_requests_count": approved_requests_count,
+        'total_completed_hours': total_completed_hours,
+        'rejected_requests': rejected_requests,
     }
 
     return render(
@@ -415,7 +441,7 @@ def reject_application(request, pk):
         messages.error(request, _("You can only manage applications for your own opportunities."))
         return redirect('dashboard:agency_dashboard')
 
-    application.status = 'rejected'
+    application.status = "rejected"
     application.save()
 
     return redirect('dashboard:agency_dashboard')
@@ -448,3 +474,97 @@ def delete_user(request, pk):
         user.delete()
 
     return redirect('dashboard:manage_users')
+
+
+
+# ===================== RADAR CHART View ===================== 
+def agency_radar_data(request):
+    if request.user.role != 'agency':
+        return JsonResponse({'error': 'Unauthorized'}, status=403)
+
+    opportunities = Opportunity.objects.filter(created_by=request.user)
+    apps = Application.objects.filter(opportunity__in=opportunities)
+
+    total_applications = apps.count()
+    total_hours = apps.filter(status='completed').aggregate(total=Sum('volunteer_hours'))['total'] or 0
+    unique_volunteers = apps.values('student').distinct().count()
+    max_hours = opportunities.aggregate(total=Sum('hours'))['total'] or 1
+    max_volunteers = apps.values('student').distinct().count() or 1
+
+    approved_completed = apps.filter(status__in=['accepted', 'completed']).count()
+    completed = apps.filter(status='completed').count()
+    confirmed = apps.filter(participation_confirmed=True).count()
+
+    approval_rate = round((approved_completed / total_applications) * 100, 1) if total_applications > 0 else 0
+    completion_rate = round((completed / total_applications) * 100, 1) if total_applications > 0 else 0
+    confirmation_rate = round((confirmed / total_applications) * 100, 1) if total_applications > 0 else 0
+
+    return JsonResponse({
+        'total_applications': total_applications,
+        'total_hours': float(total_hours),
+        'max_hours': float(max_hours),
+        'unique_volunteers': unique_volunteers,
+        'max_volunteers': max_volunteers,
+        'approval_rate': approval_rate,
+        'completion_rate': completion_rate,
+        'confirmation_rate': confirmation_rate,
+    })
+
+# ===================== AGENCY PERFORMANCE DATA View =====================
+@login_required
+def agency_performance_data(request):
+    if not request.user.is_staff:
+        return JsonResponse({'error': 'Unauthorized'}, status=403)
+
+    try:
+        agencies = User.objects.filter(role='agency')
+        rows = []
+
+        for agency in agencies:
+            apps = Application.objects.filter(opportunity__created_by=agency)
+
+            total = apps.count()
+            approved_completed = apps.filter(status__in=['accepted', 'completed']).count()
+            completed = apps.filter(status='completed').count()
+            pending = apps.filter(status='pending').count()
+            active_users = apps.values('student').distinct().count()
+
+            approval_rate = (approved_completed / total * 100) if total > 0 else 0
+
+            rows.append({
+                'agency': agency.get_full_name() or agency.username,
+                'approval_rate': approval_rate,
+                'completed': completed,
+                'active_users': active_users,
+                'pending': pending,
+            })
+
+        if not rows:
+            return JsonResponse([], safe=False)
+
+        max_completed = max(r['completed'] for r in rows) or 1
+        max_active = max(r['active_users'] for r in rows) or 1
+        max_pending = max(r['pending'] for r in rows) or 1
+
+        for r in rows:
+            norm_completed = (r['completed'] / max_completed) * 100
+            norm_active = (r['active_users'] / max_active) * 100
+            norm_pending = (r['pending'] / max_pending) * 100
+
+            score = (
+                r['approval_rate'] * 0.4
+                + norm_completed * 0.3
+                + norm_active * 0.2
+                - norm_pending * 0.1
+            )
+
+            r['score'] = round(score, 1)
+            r['approval_rate'] = round(r['approval_rate'], 1)
+
+        rows.sort(key=lambda x: x['score'], reverse=True)
+
+        return JsonResponse(rows, safe=False)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+

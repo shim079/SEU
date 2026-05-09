@@ -15,17 +15,22 @@
 <section class="dashboard-section">
     <div class="container">
         {% if notifications %}
-            <div class="row g-4">
+            <div class="timeline">
                 {% for notification in notifications %}
-                <div class="col-md-6">
-                    <div class="dashboard-card">
-                        <div class="dashboard-icon purple-icon">
-                            <i class="bi bi-bell"></i>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card dashboard-card">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="dashboard-icon purple-icon flex-shrink-0">
+                                <i class="bi bi-bell"></i>
+                            </div>
+                            <div class="text-center w-100">
+                                <p class="mb-2">{{ notification.message }}</p>
+                                <small class="text-muted">
+                                    {{ notification.created_at|date:"F d, Y - h:i A" }}
+                                </small>
+                            </div>
                         </div>
-                        <p class="mb-2">{{ notification.message }}</p>
-                        <small class="text-muted">
-                            {{ notification.created_at|date:"F d, Y - h:i A" }}
-                        </small>
                     </div>
                 </div>
                 {% endfor %}
@@ -38,4 +43,93 @@
         {% endif %}
     </div>
 </section>
+
+<style>
+.timeline {
+    position: relative;
+    padding-left: 2rem;
+}
+
+/* vertical line */
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 0.9rem;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #d0d5dd;
+    border-radius: 2px;
+}
+
+/* each item spacing */
+.timeline-item {
+    position: relative;
+    padding-bottom: 1.75rem;
+}
+
+/* remove last spacing */
+.timeline-item:last-child {
+    padding-bottom: 0;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: -1.4rem;
+    top: 1.1rem;
+    width: 12px;
+    height: 12px;
+
+    background: linear-gradient(135deg, #7b2ff7, #9f5cff);
+
+    border-radius: 50%;
+    border: 3px solid #ffffff;
+
+    box-shadow: 
+        0 0 0 2px rgba(123, 47, 247, 0.25),
+        0 6px 12px rgba(123, 47, 247, 0.2);
+
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.timeline-item:hover .timeline-dot {
+    transform: scale(1.2);
+    box-shadow: 
+        0 0 0 3px rgba(123, 47, 247, 0.3),
+        0 8px 18px rgba(123, 47, 247, 0.35);
+}
+
+/* card alignment */
+.timeline-card {
+    margin-left: 0.5rem;
+    transition: all 0.25s ease;
+}
+
+/* hover effect (makes UI feel alive) */
+.timeline-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+/* mobile optimization */
+@media (max-width: 576px) {
+    .timeline {
+        padding-left: 1.75rem;
+    }
+
+    .timeline::before {
+        left: 0.55rem;
+    }
+
+    .timeline-dot {
+        left: -1.05rem;
+        width: 11px;
+        height: 11px;
+    }
+
+    .timeline-card {
+        margin-left: 0.25rem;
+    }
+}
+</style>
 {% endblock %}

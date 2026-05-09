@@ -15,6 +15,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
+msgid "Central dashboard for monitoring users, requests, and system performance."
+msgstr "لوحة التحكم المركزية لمراقبة المستخدمين والطلبات وأداء النظام."
+
+msgid "Approved Requests"
+msgstr "الطلبات المقبولة"
+
+msgid "Total Completed Hours"
+msgstr "إجمالي ساعات التطوع المكتملة"
+
+msgid "Rejected Requests"
+msgstr "الطلبات المرفوضة"
+
+
 msgid "Back to Dashboard"
 msgstr "العودة إلى لوحة التحكم"
 
@@ -635,3 +648,93 @@ msgstr "الموعد النهائي للتقديم"
 
 msgid "The application deadline for this opportunity has passed."
 msgstr "لقد انتهى الموعد النهائي للتقديم على هذه الفرصة."
+
+msgid "SEU Volunteer Admin"
+msgstr "مشرف متطوعي SEU"
+
+msgid "Agency Performance Ranking"
+msgstr "ترتيب أداء الوكالات"
+
+msgid "Are you sure you want to delete this opportunity?"
+msgstr "هل أنت متأكد أنك تريد حذف هذه الفرصة؟"
+
+msgid "Failed to load performance data."
+msgstr "فشل في تحميل بيانات الأداء."
+
+msgid "No agency data available yet."
+msgstr "لا توجد بيانات للوكالات متاحة بعد."
+
+msgid "Performance Score"
+msgstr "درجة الأداء"
+
+msgid "Active Users"
+msgstr "المستخدمون النشطون"
+
+msgid "Cancle"
+msgstr "إلغاء"
+
+msgid "Edit"
+msgstr "تعديل"
+
+msgid "Agency Performance"
+msgstr "أداء الوكالة"
+
+msgid "Completion Rate"
+msgstr "معدل الإكمال"
+
+msgid "Confirmation Rate"
+msgstr "معدل التأكيد"
+
+msgid "Volunteer Reach"
+msgstr "مدى الوصول للمتطوعين"
+
+msgid "Impact Hours"
+msgstr "ساعات الأثر"
+
+msgid "Agency Score"
+msgstr "درجة الوكالة"
+
+msgid "Unique Volunteers"
+msgstr "المتطوعون الفريدون"
+
+msgid "Total Hours"
+msgstr "إجمالي الساعات"
+
+msgid "Failed to load radar data."
+msgstr "فشل في تحميل بيانات الرادار."
+
+msgid "Chart library failed to load."
+msgstr "فشل في تحميل مكتبة الرسوم البيانية."
+
+msgid "No application data yet. Create opportunities and receive applications to see your radar chart."
+msgstr "لا توجد بيانات طلبات بعد. أنشئ فرصاً واستقبل طلبات لرؤية مخطط الرادار الخاص بك."
+
+msgid "You can manage this opportunity from your dashboard"
+msgstr "يمكنك إدارة هذه الفرصة من لوحة التحكم الخاصة بك"
+
+msgid "Please correct the error below."
+msgstr "يرجى تصحيح الخطأ أدناه."
+
+msgid "Please correct the errors below."
+msgstr "يرجى تصحيح الأخطاء أدناه."
+
+msgid "Forgotten your password or username?"
+msgstr "هل نسيت كلمة المرور أو اسم المستخدم؟"
+
+msgid "Log in"
+msgstr "تسجيل الدخول"
+
+msgid "Volunteer Certificate"
+msgstr "شهادة تطوعية"
+
+msgid "%(hours)s hours"
+msgstr "%(hours)s ساعة"
+
+msgid "Opportunity Details | %(name)s"
+msgstr "تفاصيل الفرصة | %(name)s"
+
+msgid "Issued on %(date)s"
+msgstr "صدر في %(date)s"
+
+msgid "You are authenticated as %(username)s, but are not authorized to access this page. Would you like to login to a different account?"
+msgstr "أنت مسجل الدخول باسم %(username)s، ولكن ليس لديك صلاحية الوصول إلى هذه الصفحة. هل ترغب في تسجيل الدخول بحساب مختلف؟"

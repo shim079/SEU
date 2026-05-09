@@ -7,7 +7,11 @@
 <section class="dashboard-hero">
     <div class="container text-center">
         <h1>{% trans "Admin Dashboard" %}</h1>
-        <p>{% trans "Overview of the platform." %}</p>
+        {% if LANGUAGE_CODE == 'ar' %}
+        لوحة التحكم المركزية لمراقبة المستخدمين والطلبات وأداء النظام
+        {% else %}
+        Central dashboard for monitoring users, requests, and system performance
+        {% endif %}
     </div>
 </section>
 
@@ -35,7 +39,51 @@
                     <p>{% trans "Pending Requests" %}</p>
                 </div>
             </div>
+            <div class="col-md-4">
+                <div class="dashboard-card text-center">
+                    <div class="dashboard-icon blue-icon"><i class="bi bi-check-circle"></i></div>
+                    <h3>{{ approved_requests_count }}</h3>
+                    {% if LANGUAGE_CODE == 'ar' %}
+                    الطلبات المقبولة
+                    {% else %}
+                    Approved Requests
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="dashboard-card text-center">
+                    <div class="dashboard-icon blue-icon"><i class="bi bi-clock-history"></i></div>
+                    <h3>{{ total_completed_hours }}</h3>
+                    {% if LANGUAGE_CODE == 'ar' %}
+                    إجمالي ساعات التطوع المكتملة
+                    {% else %}
+                    Total Completed Hours
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="dashboard-card text-center">
+                    <div class="dashboard-icon red-icon"><i class="bi bi-x-circle"></i></div>
+                    <h3>{{ rejected_requests }}</h3>
+                    {% if LANGUAGE_CODE == 'ar' %}
+                    الطلبات المرفوضة
+                    {% else %}
+                    Rejected Requests
+                    {% endif %}
+                </div>
+            </div>
         </div>
+                <div class="dashboard-panel mb-5">
+            <h3 class="fw-bold mb-4" style="color:#0d1b4d;">{% if LANGUAGE_CODE == 'ar' %}
+            تصنيف أداء الوكالات
+            {% else %}
+            Agency Performance Ranking
+           {% endif %}</h3>
+            <div class="chart-container" style="position:relative; height:250px; width:100%;">
+                <canvas id="agencyPerformanceChart"></canvas>
+            </div>
+        </div>
+
 
         <div class="d-flex gap-3 mb-5">
             <a href="{% url 'dashboard:manage_users' %}" class="dashboard-btn">
@@ -94,3 +142,103 @@
     </div>
 </section>
 {% endblock %}
+{% block extra_js %}
+{# ===================== AGENCY PERFORMANCE CHART ===================== #}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var canvas = document.getElementById('agencyPerformanceChart');
+    var container = canvas.parentElement;
+
+    if (typeof Chart === 'undefined') {
+        container.innerHTML =
+            '<p class="text-muted text-center">{% trans "Failed to load performance data." %}</p>';
+        return;
+    }
+
+    fetch('{% url "dashboard:agency_performance_data" %}')
+        .then(function (res) { return res.json(); })
+        .then(function (data) {
+            if (!Array.isArray(data) || data.length === 0) {
+                container.innerHTML =
+                    '<p class="text-muted text-center">{% trans "No agency data available yet." %}</p>';
+                return;
+            }
+
+            var labels = data.map(function (d) { return d.agency; });
+            var scores = data.map(function (d) { return d.score; });
+
+            var colors = [
+                'rgba(13, 27, 77, 0.85)',
+                'rgba(255, 99, 132, 0.85)',
+                'rgba(54, 162, 235, 0.85)',
+                'rgba(255, 206, 86, 0.85)',
+                'rgba(75, 192, 192, 0.85)',
+                'rgba(153, 102, 255, 0.85)',
+                'rgba(255, 159, 64, 0.85)',
+                'rgba(199, 199, 199, 0.85)',
+                'rgba(83, 205, 138, 0.85)',
+                'rgba(244, 150, 210, 0.85)',
+            ];
+
+            var borderColors = colors.map(function (c) { return c.replace('0.85', '1'); });
+
+            var ctx = canvas.getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: '{% trans "Performance Score" %}',
+                        data: scores,
+                        backgroundColor: colors.slice(0, labels.length),
+                        borderColor: borderColors.slice(0, labels.length),
+                        borderWidth: 2,
+                        borderRadius: 6,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                afterLabel: function (ctx) {
+                                    var item = data[ctx.dataIndex];
+                                    return '{% trans "Approval Rate" %}: ' + item.approval_rate + '%\n'
+                                        + '{% trans "Completed" %}: ' + item.completed + '\n'
+                                        + '{% trans "Active Users" %}: ' + item.active_users + '\n'
+                                        + '{% trans "Pending" %}: ' + item.pending;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: '{% trans "Performance Score" %}',
+                            },
+                            grid: { color: 'rgba(0,0,0,0.06)' }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: {
+                                maxRotation: 30,
+                                minRotation: 0,
+                            }
+                        }
+                    }
+                }
+            });
+        })
+        .catch(function () {
+            container.innerHTML =
+                '<p class="text-muted text-center">{% trans "Failed to load performance data." %}</p>';
+        });
+});
+</script>
+{% endblock %}
+

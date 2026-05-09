@@ -10,9 +10,42 @@
         <p>{% trans "Manage opportunities and volunteer requests." %}</p>
     </div>
 </section>
-
 <section class="dashboard-section">
     <div class="container">
+        <div class="row g-4 mb-5">
+            <div class="col-md-4">
+                <div class="dashboard-card text-center">
+                    <div class="dashboard-icon blue-icon"><i class="bi bi-briefcase"></i></div>
+                    <h3>{{ total_opportunities }}</h3>
+                    <p>{% trans "Total Opportunities" %}</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="dashboard-card text-center">
+                    <div class="dashboard-icon purple-icon"><i class="bi bi-clock"></i></div>
+                    <h3>{{ total_hours }}</h3>
+                    <p>{% trans "Total Volunteer Hours" %}</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="dashboard-card text-center">
+                    <div class="dashboard-icon blue-icon"><i class="bi bi-file-earmark-text"></i></div>
+                    <h3>{{ total_applications }}</h3>
+                    <p>{% trans "Total Applications" %}</p>
+                </div>
+            </div>
+        </div>
+
+        {# ===================== RADAR CHART ===================== #}
+        <div class="dashboard-panel mb-5" style="max-width:100%;overflow:hidden;">
+            <h3 class="fw-bold mb-4" style="color:#0d1b4d;">
+                {% trans "Agency Performance" %}
+            </h3>
+            <div id="radarChartContainer" style="position:relative;width:100%;max-width:500px;height:400px;margin:0 auto;">
+                <canvas id="agencyRadarChart" style="width:100% !important;height:100% !important;"></canvas>
+            </div>
+        </div>
+        {# ===================== btn ===================== #}
         <div class="d-flex gap-3 mb-5">
             <a href="{% url 'dashboard:add_opportunity' %}" class="dashboard-btn">
                 {% trans "Add Opportunity" %}
@@ -21,101 +54,326 @@
                 {% trans "View Volunteers" %}
             </a>
         </div>
-
+        {# ===================== OPPORTUNITIES ===================== #}
         <div class="dashboard-panel mb-5">
-            <h3 class="fw-bold mb-4" style="color:#0d1b4d;">{% trans "My Opportunities" %}</h3>
-            <table class="dash-table">
-                <thead>
-                    <tr>
-                        <th>{% trans "Name" %}</th>
-                        <th>{% trans "Organization" %}</th>
-                        <th>{% trans "Location" %}</th>
-                        <th>{% trans "Date" %}</th>
-                        <th>{% trans "Hours" %}</th>
-                        <th>{% trans "Status" %}</th>
-                        <th>{% trans "Actions" %}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for opportunity in opportunities %}
-                    <tr>
-                        <td>{{ opportunity.name }}</td>
-                        <td>{{ opportunity.organization }}</td>
-                        <td>{{ opportunity.location }}</td>
-                        <td>{{ opportunity.date }}</td>
-                        <td>{{ opportunity.hours }}</td>
-                        <td>{{ opportunity.status }}</td>
-                        <td class="align-middle">
-        <div class="d-flex gap-2">
-            <a href="{% url 'opportunities:edit_opportunity' opportunity.pk %}"
-               class="btn btn-sm btn-primary">
-                {% trans "Edit" %}
-            </a>
+            <h3 class="fw-bold mb-4" style="color:#0d1b4d;">
+                {% trans "My Opportunities" %}
+            </h3>
 
-            <form method="POST"
-                  action="{% url 'opportunities:delete_opportunity' opportunity.pk %}"
-                  style="display:inline;">
-                {% csrf_token %}
+            <div class="table-responsive">
+                <table class="dash-table">
+                    <thead>
+                        <tr>
+                            <th>{% trans "Name" %}</th>
+                            <th>{% trans "Organization" %}</th>
+                            <th>{% trans "Location" %}</th>
+                            <th>{% trans "Date" %}</th>
+                            <th>{% trans "Hours" %}</th>
+                            <th>{% trans "Status" %}</th>
+                            <th>{% trans "Actions" %}</th>
+                        </tr>
+                    </thead>
 
-                <button type="submit"
-                        class="btn btn-sm btn-danger"
-                        onclick="return confirm('{% trans "Are you sure you want to delete this opportunity?" %}')">
-                    {% trans "Delete" %}
-                </button>
-            </form>
+                    <tbody>
+                        {% for opportunity in opportunities %}
+                        <tr>
+                            <td>{{ opportunity.name|default:"-" }}</td>
+                            <td>{{ opportunity.organization|default:"-" }}</td>
+                            <td>{{ opportunity.location|default:"-" }}</td>
+                            <td>{{ opportunity.date|default:"-" }}</td>
+                            <td>{{ opportunity.hours|default:"0" }}</td>
+                            <td>{{ opportunity.status|default:"-" }}</td>
+
+                            <td>
+                                <div class="d-flex gap-2">
+
+                                    <a href="{% url 'opportunities:edit_opportunity' opportunity.pk %}"
+                                       class="btn btn-sm btn-primary">
+                                        {% trans "Edit" %}
+                                    </a>
+
+                                    <form method="POST"
+                                          action="{% url 'opportunities:delete_opportunity' opportunity.pk %}">
+                                        {% csrf_token %}
+
+                                        <button type="submit"
+                                                class="btn btn-sm btn-danger"
+                                                onclick="return confirm('{% trans "Are you sure you want to delete this opportunity?" %}')">
+                                            {% trans "Delete" %}
+                                        </button>
+                                    </form>
+
+                                </div>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="7" class="text-center text-muted">
+                                {% trans "No opportunities found." %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
         </div>
-    </td>
-                    </tr>
-                    {% empty %}
-                    <tr>
-                        <td colspan="7" class="text-center text-muted">{% trans "No opportunities found." %}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-
+        {# ===================== APPLICATIONS ===================== #}
         <div class="dashboard-panel">
-            <h3 class="fw-bold mb-4" style="color:#0d1b4d;">{% trans "Student Applications" %}</h3>
-            <table class="dash-table">
-                <thead>
-                    <tr>
-                        <th>{% trans "Student" %}</th>
-                        <th>{% trans "Opportunity" %}</th>
-                        <th>{% trans "Status" %}</th>
-                        <th>{% trans "Actions" %}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for application in applications %}
-                    <tr>
-                        <td>{{ application.student }}</td>
-                        <td>{{ application.opportunity.name }}</td>
-                        <td>{{ application.status }}</td>
-                        <td>
-                            {% if application.status == 'pending' %}
-                                <a href="{% url 'dashboard:accept_application' application.pk %}" class="btn btn-sm btn-success">{% trans "Accept" %}</a>
-                                <a href="{% url 'dashboard:reject_application' application.pk %}" class="btn btn-sm btn-danger" onclick="return confirm('{% trans "Are you sure?" %}')">{% trans "Reject" %}</a>
-                            {% elif application.status == 'accepted' and not application.participation_confirmed %}
-                                <span class="text-success fw-bold">{% trans "Accepted" %}</span>
-                                <a href="{% url 'dashboard:confirm_participation' application.pk %}" class="m-1 btn btn-sm btn-primary">{% trans "Confirm Participation" %}</a>
-                            {% elif application.status == 'accepted' and application.participation_confirmed %}
-                                <span class="text-success fw-bold">{% trans "Confirmed" %}</span>
-                            {% elif application.status == 'rejected' %}
-                                <span class="text-danger fw-bold">{% trans "Rejected" %}</span>
-                            {% else %}
-                                <span class="text-muted">{{ application.status }}</span>
-                            {% endif %}
-                        </td>
-                    </tr>
-                    {% empty %}
-                    <tr>
-                        <td colspan="4" class="text-center text-muted">{% trans "No student applications yet." %}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+            <h3 class="fw-bold mb-4" style="color:#0d1b4d;">
+                {% trans "Student Applications" %}
+            </h3>
+
+            <div class="table-responsive">
+                <table class="dash-table">
+                    <thead>
+                        <tr>
+                            <th>{% trans "Student" %}</th>
+                            <th>{% trans "Opportunity" %}</th>
+                            <th>{% trans "Status" %}</th>
+                            <th>{% trans "Actions" %}</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for application in applications %}
+                        <tr>
+                            <td>{{ application.student|default:"-" }}</td>
+                            <td>{{ application.opportunity.name|default:"-" }}</td>
+                            <td>{{ application.status|default:"-" }}</td>
+
+                            <td>
+                                {% if application.status == 'pending' %}
+
+                                    <a href="{% url 'dashboard:accept_application' application.pk %}"
+                                       class="btn btn-sm btn-success">
+                                        {% trans "Accept" %}
+                                    </a>
+
+                                    <a href="{% url 'dashboard:reject_application' application.pk %}"
+                                       class="btn btn-sm btn-danger"
+                                       onclick="return confirm('{% trans "Are you sure?" %}')">
+                                        {% trans "Reject" %}
+                                    </a>
+
+                                {% elif application.status == 'accepted' and not application.participation_confirmed %}
+
+                                    <span class="text-success fw-bold">
+                                        {% trans "Accepted" %}
+                                    </span>
+
+                                    <a href="{% url 'dashboard:confirm_participation' application.pk %}"
+                                       class="btn btn-sm btn-primary m-1">
+                                        {% trans "Confirm Participation" %}
+                                    </a>
+
+                                {% elif application.status == 'accepted' and application.participation_confirmed %}
+
+                                    <span class="text-success fw-bold">
+                                        {% trans "Confirmed" %}
+                                    </span>
+
+                                {% elif application.status == 'rejected' %}
+
+                                    <span class="text-danger fw-bold">
+                                        {% trans "Rejected" %}
+                                    </span>
+
+                                {% else %}
+                                    <span class="text-muted">
+                                        {{ application.status }}
+                                    </span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4" class="text-center text-muted">
+                                {% trans "No student applications yet." %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </section>
+
+{% endblock %}
+
+{% block extra_js %}
+         {# ===================== RADAR CHART Script ===================== #}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    const canvas = document.getElementById('agencyRadarChart');
+    const container = document.getElementById('radarChartContainer');
+
+    // Stop if elements do not exist
+    if (!canvas || !container) return;
+
+    // Stop if Chart.js failed to load
+    if (typeof Chart === 'undefined') {
+        container.innerHTML = `
+            <p class="text-danger text-center">
+                {% trans "Chart library failed to load." %}
+            </p>
+        `;
+        return;
+    }
+
+    fetch('{% url "dashboard:agency_radar_data" %}')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch data');
+            }
+            return response.json();
+        })
+
+        .then(data => {
+
+            // No data state
+            if (!data || Number(data.total_applications) === 0) {
+                container.innerHTML = `
+                    <p class="text-muted text-center">
+                        {% trans "No application data yet. Create opportunities and receive applications to see your radar chart." %}
+                    </p>
+                `;
+                return;
+            }
+
+            // Safe numeric values
+            const approvalRate = Number(data.approval_rate) || 0;
+            const completionRate = Number(data.completion_rate) || 0;
+            const confirmationRate = Number(data.confirmation_rate) || 0;
+
+            const uniqueVolunteers = Number(data.unique_volunteers) || 0;
+            const totalHours = Number(data.total_hours) || 0;
+
+            const maxHours = Number(data.max_hours) || 1;
+            const maxVolunteers = Number(data.max_volunteers) || 1;
+
+            // Normalize values
+            const hoursNormalized = Math.min(
+                (totalHours / maxHours) * 100,
+                100
+            );
+
+            const volunteersNormalized = Math.min(
+                (uniqueVolunteers / maxVolunteers) * 100,
+                100
+            );
+
+            // Create chart
+            new Chart(canvas, {
+
+                type: 'radar',
+
+                data: {
+                    labels: [
+                        '{% trans "Approval Rate" %}',
+                        '{% trans "Completion Rate" %}',
+                        '{% trans "Confirmation Rate" %}',
+                        '{% trans "Volunteer Reach" %}',
+                        '{% trans "Impact Hours" %}'
+                    ],
+
+                    datasets: [{
+                        label: '{% trans "Agency Score" %}',
+
+                        data: [
+                            approvalRate,
+                            completionRate,
+                            confirmationRate,
+                            Math.round(volunteersNormalized),
+                            Math.round(hoursNormalized)
+                        ],
+
+                        backgroundColor: 'rgba(13, 27, 77, 0.2)',
+                        borderColor: '#0d1b4d',
+                        borderWidth: 2,
+
+                        pointBackgroundColor: '#0d1b4d',
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 1,
+
+                        pointRadius: 5,
+                        pointHoverRadius: 7
+                    }]
+                },
+
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            max: 100,
+
+                            ticks: {
+                                stepSize: 20,
+                                font: {
+                                    size: 10
+                                }
+                            },
+
+                            grid: {
+                                color: 'rgba(0,0,0,0.08)'
+                            },
+
+                            angleLines: {
+                                color: 'rgba(0,0,0,0.08)'
+                            },
+
+                            pointLabels: {
+                                color: '#0d1b4d',
+                                font: {
+                                    size: 12,
+                                    weight: 'bold'
+                                }
+                            }
+                        }
+                    },
+
+                    plugins: {
+
+                        legend: {
+                            display: false
+                        },
+
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+
+                                    const labels = [
+                                        '{% trans "Approval Rate" %}: ' + approvalRate + '%',
+                                        '{% trans "Completion Rate" %}: ' + completionRate + '%',
+                                        '{% trans "Confirmation Rate" %}: ' + confirmationRate + '%',
+                                        '{% trans "Unique Volunteers" %}: ' + uniqueVolunteers,
+                                        '{% trans "Total Hours" %}: ' + totalHours
+                                    ];
+
+                                    return labels[context.dataIndex];
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+        })
+
+        .catch(error => {
+            console.error('Radar chart error:', error);
+            container.innerHTML = `
+                <p class="text-muted text-center">
+                    {% trans "Failed to load radar data." %}
+                </p>
+            `;
+        });
+});
+</script>
 {% endblock %}
