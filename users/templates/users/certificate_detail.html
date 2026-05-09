@@ -173,9 +173,7 @@
             border: none;
             background: #1f2744;
             color: white;
-
-cursor: pointer;
-
+            cursor: pointer;
 }
 
         @media print {
@@ -216,7 +214,7 @@ cursor: pointer;
         <div class="sig-block">
             <div class="sig-line"></div>
             <div>Date</div>
-            <div>April 20, 2026</div>
+            <div class="sig-name">{{ certificate.issued_at|date:"Y-m-d" }}</div>
         </div>
 
         <div>❦</div>
@@ -237,7 +235,11 @@ cursor: pointer;
 
 <div style="text-align: center;">
     <button class="pdf-btn" onclick="window.print()">Download PDF</button>
+    <a href="{% url 'dashboard:student_dashboard' %}" class="pdf-btn">
+                Back to Dashboard
+            </a>
 </div>
+
 
 </body>
 </html>
