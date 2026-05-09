@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Certificate
 from accounts.models import Notification
-from django.template.loader import get_template, render_to_string
+from django.template.loader import get_template
 
 
 @login_required
@@ -51,11 +51,6 @@ def download_certificate_pdf(request, certificate_id):
 
     response['Content-Disposition'] = (
         f'attachment; filename="certificate_{certificate.id}.pdf"'
-    )
-
-    pisa.CreatePDF(
-        html,
-        dest=response
     )
 
     return response

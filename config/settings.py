@@ -1,7 +1,3 @@
-
-"""
-Django settings for config project.
-"""
 import dj_database_url
 import os
 from pathlib import Path
@@ -126,3 +122,8 @@ AUTH_USER_MODEL = 'users.CustomUser'
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/dashboard/'
 LOGOUT_REDIRECT_URL = '/'
+
+
+# Media files
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'

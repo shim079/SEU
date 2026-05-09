@@ -6,7 +6,6 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
 from django.utils import timezone
 from django.utils.translation import gettext as _
-from django.db.models import Sum
 from opportunities.models import Opportunity
 from applications.models import Application
 from accounts.models import Notification

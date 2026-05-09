@@ -1,9 +1,24 @@
-{% extends 'opportunities/base.html' %}
+{% extends 'base.html' %}
 {% load i18n %}
 
 {% block title %}{% trans "Post New Opportunity" %}{% endblock %}
 
-{% block opportunity_content %}
+{% block extra_css %}
+<style>
+    .opportunity-nav {
+        background-color: #f8f9fa;
+        padding: 15px 0;
+        margin-bottom: 20px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="opportunity-nav">
+    <div class="container">
+        <a href="{% url 'opportunities:opportunity_list' %}" class="mt-4 btn btn-secondary">{% trans "All Opportunities" %}</a>
+    </div>
+</div>
 
 <div class="container mt-5 mb-5">
     <h2 class="fw-bold mb-4">{% trans "Post a New Opportunity" %}</h2>
@@ -50,4 +65,4 @@
     </form>
 </div>
 
-{% endblock opportunity_content %}
+{% endblock %}
