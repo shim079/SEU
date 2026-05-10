@@ -21,6 +21,20 @@
                     <label class="form-label">{% trans "Title" %}</label>
                     <input type="text" name="title" class="form-control" required>
                 </div>
+                <div class="mb-3">
+                    <label class="form-label">{% trans "Category" %}</label>
+                    <select name="category" class="form-control" required>
+                        <option value="">{% trans "Select Category" %}</option>
+                        <option value="Computer Science">{% trans "Computer Science" %}</option>
+                        <option value="Business">{% trans "Business" %}</option>
+                        <option value="Engineering">{% trans "Engineering" %}</option>
+                        <option value="Healthcare">{% trans "Healthcare" %}</option>
+                        <option value="Education">{% trans "Education" %}</option>
+                        <option value="Media">{% trans "Media" %}</option>
+                        <option value="Artificial Intelligence">{% trans "Artificial Intelligence" %}</option>
+                        <option value="Cybersecurity">{% trans "Cybersecurity" %}</option>
+                    </select>
+                </div>
 
                 <div class="mb-3">
                     <label class="form-label">{% trans "Description" %}</label>

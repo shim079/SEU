@@ -31,6 +31,59 @@
             <input type="text" name="name" class="form-control"
                    value="{{ opportunity.name }}" required>
         </div>
+        <div class="mb-3">
+    <label class="form-label">
+        {% trans "Category" %}
+    </label>
+
+    <select name="category" class="form-control" required>
+
+        <option value="">
+            {% trans "Select Category" %}
+        </option>
+
+        <option value="Computer Science"
+            {% if opportunity.category == "Computer Science" %}selected{% endif %}>
+            {% trans "Computer Science" %}
+        </option>
+
+        <option value="Business"
+            {% if opportunity.category == "Business" %}selected{% endif %}>
+            {% trans "Business" %}
+        </option>
+
+        <option value="Engineering"
+            {% if opportunity.category == "Engineering" %}selected{% endif %}>
+            {% trans "Engineering" %}
+        </option>
+
+        <option value="Healthcare"
+            {% if opportunity.category == "Healthcare" %}selected{% endif %}>
+            {% trans "Healthcare" %}
+        </option>
+
+        <option value="Education"
+            {% if opportunity.category == "Education" %}selected{% endif %}>
+            {% trans "Education" %}
+        </option>
+
+        <option value="Media"
+            {% if opportunity.category == "Media" %}selected{% endif %}>
+            {% trans "Media" %}
+        </option>
+
+        <option value="Artificial Intelligence"
+            {% if opportunity.category == "Artificial Intelligence" %}selected{% endif %}>
+            {% trans "Artificial Intelligence" %}
+        </option>
+
+        <option value="Cybersecurity"
+            {% if opportunity.category == "Cybersecurity" %}selected{% endif %}>
+            {% trans "Cybersecurity" %}
+        </option>
+
+    </select>
+</div>
 
         <div class="mb-3">
             <label class="form-label">{% trans "Description" %}</label>

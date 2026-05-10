@@ -117,7 +117,6 @@ def edit_opportunity(request, pk):
         opportunity.capacity = request.POST.get("capacity") or 0
         opportunity.category = request.POST.get("category")
         opportunity.organization = request.POST.get("organization") or "SEU Volunteer Agency"
-
         deadline_str = request.POST.get("application_deadline")
         if deadline_str:
             try:
